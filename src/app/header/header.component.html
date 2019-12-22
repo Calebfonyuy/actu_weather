@@ -1,0 +1,20 @@
+<div class="navbar navbar-light shadow bg-light fixed-top">
+	<div class="navbar-brand">
+		Actu-Weather
+	</div>
+	<div *ngIf="user" class="nav navbar navbar-nav">
+		<app-user  [user] = "user" (logout_event) = 'logoutUser($event)'></app-user>
+	</div>
+	<div *ngIf="user==null" class="nav navbar navbar-nav">
+		<ul class="nav">
+			<li class="btn-link nav-item" (click)='switchAction(1)'>
+				<span class="font-weight-bold">Login</span>
+			</li>
+			<li class="btn-link nav-item ml-3" (click)='switchAction(2)'>
+				<span class="font-weight-bold">Sign Up</span>
+			</li>
+		</ul>
+		<app-user-management *ngIf="action" [signup] = 'signup' (cancel_action)='switchAction($event)'
+			(emit_user)='updateUser($event)'></app-user-management>
+	</div>
+</div>
