@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './user/user.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { WeatherComponent } from './weather/weather.component';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -14,10 +16,12 @@ import { UserManagementComponent } from './user-management/user-management.compo
     HeaderComponent,
     FooterComponent,
     UserComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
