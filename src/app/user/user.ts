@@ -3,7 +3,7 @@ import { Address } from './address';
 export class User {
 	private address:Address[] = new Array<Address>();//List of all addresses associated with user
 	private active_address:Address;
-	constructor(private photo:string,
+	constructor(private photo :string,
   			  private name:string,
   			  private surname:string,
   			  private birthday:Date,
@@ -11,30 +11,30 @@ export class User {
 
 	}
 
-	public set photo(photo){
+	public setphoto(photo){
 		this.photo = photo;
 	}
-	public set name(name){
+	public setname(name){
 		this.name = name;
 	}
-	public set surname(surname){
+	public setsurname(surname){
 		this.surname = surname;
 	}
-	public set birthday(birthday:Date){
+	public setbirthday(birthday:Date){
 		this.birthday = birthday;
 	}
-	public set sex(sex){
+	public setsex(sex){
 		if(sex.startsWith("masc")) this.sex = "Masculin";
 		else if(sex.startsWith("fem")) this.sex = "Feminine";
 		else this.sex = "Not Set";
 	}
 
-	public get photo(){return this.photo;}
-	public get name(){return this.name;}
-	public get surname(){return this.surname;}
-	public get birthday(){return this.birthday.toDateString();}
-	public get sex(){return this.sex;}
-	public get address(){return this.active_address.town;}
+	public getphoto(){return this.photo;}
+	public getname(){return this.name;}
+	public getsurname(){return this.surname;}
+	public getbirthday(){return this.birthday.toDateString();}
+	public getsex(){return this.sex;}
+	public getaddress(){return this.active_address.town;}
 
 	public setActiveAddress(index){
 		this.active_address = this.address[index];
