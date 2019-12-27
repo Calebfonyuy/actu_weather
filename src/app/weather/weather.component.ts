@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { weather_data } from './weather_data';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpParams } from '@angular/common/http';
+
 	
 
 
@@ -14,7 +14,7 @@ export class WeatherComponent implements OnInit {
 
    donnee = new weather_data();
     public latitude :number = 35;
-    public longitude : number =  120;
+    public longitude : number = 100;
     public units : string ='metric'
     public  API_KEY:string ="33d32c6a2760f1561d57c0f8229f0a6a";
     public URL: string ="http://api.openweathermap.org/data/2.5/"
@@ -26,8 +26,11 @@ export class WeatherComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  getData(){
-    this.http.get('http://api.openweathermap.org/data/2.5/weather?q=Douala&APPID=33d32c6a2760f1561d57c0f8229f0a6a&units=metric', {responseType:'json'},).subscribe(res => {
+  getData(request_type){
+    if (request_type == "weather")
+    {
+    let req  = this.URL+request_type;
+    this.http.get(req ,{responseType:'json', params: this.param_weather}).subscribe(res => {
       this.donnee.city_name=res.name;
       this.donnee.country_cod=res.sys.country;
       this.donnee.humidity=res.main.humidity;
@@ -44,15 +47,10 @@ export class WeatherComponent implements OnInit {
      
   });
   }
+}
 
   ngOnInit() {
-    this.http.get('http://api.openweathermap.org/data/2.5/weather',{responseType:'json', params: this.param_weather}).subscribe(res => {
-      console.log(res)
-      this.donnee.temperature = res.main.temp;
-      this.donnee.city_name=res.name;
-    })
-      ;
-   
+    this.getData("weather");
   }
 
 }
