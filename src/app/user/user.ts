@@ -1,17 +1,23 @@
 import { Address } from './address';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { IndexedDBComponent } from '../indexed-db/indexed-db.component';
+import { dbConfig } from '../configuration/db-config';
 
 export class User {
+	private id:any;
 	private address:Address[] = new Array<Address>();//List of all addresses associated with user
 	private active_address:Address;
 	private username:string;
 	private password:string;
+	private dbase:IndexedDBComponent;
+	private photo:string;
+	private name:string;
+	private surname:string;
+	private birthday:Date;
+	private sex:string;
 
-	constructor(private photo:string,
-  			  private name:string,
-  			  private surname:string,
-  			  private birthday:Date,
-  			  private sex:string){
-
+	constructor(){
+		this.dbase = new IndexedDBComponent(new NgxIndexedDBService(dbConfig))
 	}
 
 	public setPhoto(photo){
@@ -32,6 +38,9 @@ export class User {
 		else this.sex = "Not Set";
 	}
 
+	public setId(id){
+		this.id = id;
+	}
 	public setUsername(username){
 		this.username = username;
 	}
@@ -46,13 +55,14 @@ export class User {
 	public getSex(){return this.sex;}
 	public getAddress(){return this.active_address.getTown();}
 	public getUsername(){return this.username;}
+	public getId(){return this.id;}
 
 	public setActiveAddress(index){
 		this.active_address = this.address[index];
 	}
 
-	public addAddress(addr){
-		this.address.push(new Address(addr));
+	public addAddress(addr, latitude, longitude){
+		this.address.push(new Address(addr, latitude, longitude));
 	}
 
 	public authenticate(username, password){
@@ -64,11 +74,17 @@ export class User {
 		return false;
 	}
 
+	//Save or update current user instance to database
 	public save(){
-
+		if(this.id){
+			this.dbase.update(this);
+		}else{
+			this.dbase.adduser(this);
+		}
 	}
 
+	//Delete user from database
 	public delete(){
-
+		this.dbase.delete(this.id);
 	}
 }

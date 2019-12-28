@@ -1,4 +1,5 @@
 import {DBConfig} from 'ngx-indexed-db';
+
 export const dbConfig : DBConfig = {
     name :'actuWeatherDb', version : 1, objectStoresMeta :[
         {
@@ -12,7 +13,6 @@ export const dbConfig : DBConfig = {
                 {name :'password', keypath :'password', options :{unique : false}},
                 {name :'address', keypath :'address', options :{unique : false}},
                 {name :'photo', keypath :'photo', options :{unique : false}},
-
             ]
         }
     ]
