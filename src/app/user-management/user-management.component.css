@@ -2,8 +2,11 @@
 	position: fixed;
 	right: 0px;
 	top: 50px;
+	bottom: 20px;
 	box-shadow: 3px 3px 5px #c0c0c0,
 				-3px 3px 5px #c0c0c0;
+	max-height: 100%;
+	overflow-y: scroll;
 }
 
 .input-group>label{
@@ -15,4 +18,8 @@
 
 input[type=password]{
 	font-size: 15pt;
+}
+
+#grayed{
+	opacity:45%;
 }

@@ -30,7 +30,7 @@
 					{{ user.sex }}
 				</div>
 				<div class="">
-					Born on <span class="font-weight-bold">{{ user.birthday.toDateString() }}</span>
+					Born on <span class="font-weight-bold">{{ user.birthday }}</span>
 				</div>
 				<div class="">
 					Currently at <span class="font-weight-bold">{{ user.active_address }}</span>
@@ -69,11 +69,11 @@
 					</div>
 				</div>
 
-				<ul *ngFor="let town of user.address; index as i">
-					<li *ngIf='town == user.active_address' class="font-weight-bold">
-						{{ town }} <span class="fa fa-check"></span>
+				<ul *ngFor="let address of user.address; index as i">
+					<li *ngIf='address == user.active_address' class="font-weight-bold">
+						{{ address.getTown() }} <span class="fa fa-check"></span>
 					</li>
-					<li *ngIf='town != user.active_address' class="btn-link" (click)="changAddress(i)">{{ town }}</li>
+					<li *ngIf='address != user.active_address' class="btn-link" (click)="changAddress(i)">{{ address.getTown() }}</li>
 				</ul>
 			</div>
 		</div>
