@@ -23,6 +23,7 @@
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
+    "leaflet": "^1.6.0",
     "ngx-indexed-db": "^3.0.12",
     "popper.js": "^1.16.0",
     "rxjs": "~6.4.0",

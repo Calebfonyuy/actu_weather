@@ -48,6 +48,10 @@ export class User {
 		this.password = password;
 	}
 
+	public getPassword(){
+		return ''
+	}
+
 	public getPhoto(){return this.photo;}
 	public getName(){return this.name;}
 	public getSurname(){return this.surname;}
