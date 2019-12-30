@@ -1,0 +1,19 @@
+#main-div{
+	position: fixed;
+	right: 0px;
+	top: 50px;
+	height: 87%;
+	box-shadow: 3px 3px 5px #c0c0c0,
+				-3px 3px 5px #c0c0c0;
+	overflow-y: scroll;
+}
+
+#address-form{
+	position: fixed;
+	right: 20px;
+	margin-top: -50px;
+}
+
+.nav-item, .btn-link{
+	cursor: pointer;
+}
