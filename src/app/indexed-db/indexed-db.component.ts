@@ -62,6 +62,16 @@ getUserByKey(key : number) {
   )
   
 }
+getAlluser(){
+  this.dbService.getAll().then(
+    user=> {
+        console.log(user);
+    },
+    error => {
+        console.log(error);
+    }
+);
+}
 
 
   ngOnInit() {
