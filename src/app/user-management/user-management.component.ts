@@ -33,10 +33,10 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	public signUp(){
-		if(this.user.name && this.user.surname && this.user.birthday && this.user.username && this.user.password && this.user.sex){
+		if(this.user.getName() && this.user.getSurname() && this.user.getBirthday() && this.user.getUsername() && this.user.getPassword() && this.user.getSex()){
 			this.user.save();
-			console.log(this.user.id);
-			console.log(this.user.birthday);
+			console.log(this.user.getId());
+			console.log(this.user.getBirthday());
 			this.emit_user.emit(this.user);
 		}else{
 			alert('Fill in all fields');
