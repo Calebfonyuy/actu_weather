@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { User } from '../user/user';
 import { AppComponent } from '../app.component';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { IndexedDBComponent } from '../indexed-db/indexed-db.component';
+import { dbConfig } from '../configuration/db-config';
 
 @Component({
   selector: 'app-user-management',
@@ -10,8 +13,9 @@ import { AppComponent } from '../app.component';
 })
 
 export class UserManagementComponent implements OnInit {
-	private username:string;
+	public username:string;
 	private password:string;
+	private debcon:IndexedDBComponent;
 
 	private user:User = new User();
 	private app:AppComponent = new AppComponent();
@@ -23,9 +27,10 @@ export class UserManagementComponent implements OnInit {
 	private emit_user:EventEmitter<User> = new EventEmitter<User>();
 
 
-	constructor() {  }
+	constructor() { }
 
 	ngOnInit() {
+		this.debcon = new IndexedDBComponent(new NgxIndexedDBService(dbConfig))
 	}
 
 	public cancelAction(){
@@ -33,18 +38,52 @@ export class UserManagementComponent implements OnInit {
 	}
 
 	public signUp(){
+		console.log(this.user);
 		if(this.user.getName() && this.user.getSurname() && this.user.getBirthday() && this.user.getUsername() && this.user.getPassword() && this.user.getSex()){
-			this.user.save();
-			console.log(this.user.getId());
-			console.log(this.user.getBirthday());
-			this.emit_user.emit(this.user);
+			if(this.user.getPassword() == this.password){
+				this.user.save(this);
+			}else{
+				alert('Passwords don\'t match');
+			}
 		}else{
 			alert('Fill in all fields');
 		}
 	}
 
+	public updateNewUser(id){
+		this.user.setId(id);
+		this.emit_user.emit(this.user);
+	}
+
+	public checkPassword(pass:string){
+		if(pass==this.password) return true;
+		else return false;
+	}
+
 	public signIn(){
-		console.log(this.username);
-		//this.emit_user.emit(user);
+		this.debcon.signInUser(this);
+	}
+
+	public completSignIn(user:any){
+		console.log(user);
+		if(user === null){
+			alert("Account Not found");
+		}else if(this.password == user['password']){
+			var found_user = new User();
+			found_user.setId(user.id);
+			found_user.setSex(user.sex);
+			found_user.setPhoto(user.photo);
+			found_user.setName(user.name);
+			found_user.setSurname(user.surname);
+			found_user.setUsername(user.username);
+			found_user.setPassword(user.password);
+			for(var i in user.address){
+				found_user.addAddress(user.address[i].town, user.address[i].lattitude, user.address[i].longitude);
+			}
+			this.user = found_user;
+			this.emit_user.emit(found_user);
+		}else{
+			alert("Wrong Password");
+		}
 	}
 }

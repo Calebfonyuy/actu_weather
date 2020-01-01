@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { error } from 'protractor';
-import { User } from '../user/user';
+import { UserManagementComponent } from '../user-management/user-management.component';
 
 @Component({
   selector: 'app-indexed-db',
@@ -14,11 +14,9 @@ export class IndexedDBComponent implements OnInit {
        }
 
        // cette methode enregistre un utilisateur dans la base de données on lui fournit l'objet sous forme de dictionnaire {index : valeur}
-  adduser(user : any) {
+  adduser(user : any, manager:UserManagementComponent) {
     this.dbService.add(user).then(
-       ()=>{
-          console.log('user add successfully');
-        },
+       id=>manager.updateNewUser(id),
         error =>{
           console.log("erreur d'enregistrement");
         }
@@ -34,10 +32,10 @@ export class IndexedDBComponent implements OnInit {
        error =>{
          console.log(error);
        }
-     ); 
+     );
   }
-  
-        
+
+
     // cette methode supprime un utilisateur dans la base de données on lui fournit l'identifieur ou la clé correspondante à cet utiilisateur
   delete( key : number) {
   this.dbService.delete (key).then(
@@ -60,7 +58,7 @@ getUserByKey(key : number) {
       console.log(error);
     },
   )
-  
+
 }
 getAlluser(){
   this.dbService.getAll().then(
@@ -74,7 +72,27 @@ getAlluser(){
 }
 
 
+
   ngOnInit() {
   }
 
+	public signInUser(manager:UserManagementComponent){
+		this.dbService.getAll().then(
+			users => {
+				console.log(users);
+				var found_user = null;
+				for(var i in users){
+					var user = users[i];
+					if(user['username'] == manager.username){
+						found_user = user;
+						break;
+					}
+				}
+				manager.completSignIn(found_user);
+			},
+			error =>{
+				console.log("Error loading all users");
+			}
+		);
+	}
 }

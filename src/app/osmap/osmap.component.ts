@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core'
+import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core'
 import * as L from 'leaflet'
 import { icon, Marker } from 'leaflet'
 import { all } from 'q';
@@ -12,14 +12,17 @@ import { all } from 'q';
 
 export class OsmapComponent implements OnInit, AfterViewInit {
   private map;
+  @Output()
+  private emit_position:EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
+    this.initMap()
+	console.log("View Initialized");
   }
 
   ngAfterViewInit() {
-    this.initMap()
   }
 
   private initMap() {
@@ -37,19 +40,21 @@ export class OsmapComponent implements OnInit, AfterViewInit {
     const myIcon = L.icon({
       iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
     })
-  
+
     tiles.addTo(this.map)
     var marker = L.marker(position, {
       icon: myIcon,
       alt: 'here👇',
-      draggable: true
+      draggable: false
     })
     marker.addTo(this.map)
 
     this.map.on('click', (e) => {
+		console.log(e);
       position = e.latlng
       console.log(position)
       marker.setLatLng(position)
+	  this.emit_position.emit(position);
     })
   }
 }

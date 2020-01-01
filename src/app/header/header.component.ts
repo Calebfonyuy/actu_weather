@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
 
 	public updateUser(nuser:User){
 		this.user = nuser;
+		console.log(nuser);
 		this.action = false;
 	}
 

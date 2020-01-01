@@ -10,9 +10,10 @@ export const dbConfig : DBConfig = {
                 {name :'surname', keypath:'surname', options:{unique : false}},
                 {name :'birthday', keypath :'birthday', options :{unique : false}},
                 {name :'sex', keypath :'sex', options :{unique : false}},
-                {name :'password', keypath :'password', options :{unique : false}},
                 {name :'address', keypath :'address', options :{unique : false}},
                 {name :'photo', keypath :'photo', options :{unique : false}},
+				{name : 'username', keypath : 'username', options: {unique : true}},
+                {name :'password', keypath :'password', options :{unique : false}},
             ]
         }
     ]

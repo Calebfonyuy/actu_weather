@@ -2,6 +2,7 @@ import { Address } from './address';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IndexedDBComponent } from '../indexed-db/indexed-db.component';
 import { dbConfig } from '../configuration/db-config';
+import { UserManagementComponent } from '../user-management/user-management.component';
 
 export class User {
 	private id:any;
@@ -49,13 +50,13 @@ export class User {
 	}
 
 	public getPassword(){
-		return ''
+		return this.password;
 	}
 
 	public getPhoto(){return this.photo;}
 	public getName(){return this.name;}
 	public getSurname(){return this.surname;}
-	public getBirthday(){return this.birthday.toDateString();}
+	public getBirthday(){return this.birthday;}
 	public getSex(){return this.sex;}
 	public getAddress(){return this.active_address.getTown();}
 	public getUsername(){return this.username;}
@@ -69,21 +70,16 @@ export class User {
 		this.address.push(new Address(addr, latitude, longitude));
 	}
 
-	public authenticate(username, password){
-		if(username == this.username){
-			if(password==this.password){
-				return true;
-			}
-		}
-		return false;
+	public addNewAddress(address:Address){
+		this.address.push(address);
 	}
 
 	//Save or update current user instance to database
-	public save(){
+	public save(manager:UserManagementComponent){
 		if(this.id){
 			this.dbase.update(this);
 		}else{
-			this.dbase.adduser(this);
+			this.dbase.adduser(this, manager);
 		}
 	}
 

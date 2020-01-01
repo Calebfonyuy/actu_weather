@@ -14,4 +14,9 @@ export class Address {
 	public getLongitude(){
 		return this.longitude;
 	}
+
+	public setPosition(position){
+		this.lattitude = position.lat;
+		this.longitude = position.lng;
+	}
 }
