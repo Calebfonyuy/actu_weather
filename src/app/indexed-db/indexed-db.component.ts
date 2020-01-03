@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { error } from 'protractor';
 import { UserManagementComponent } from '../user-management/user-management.component';
 
 @Component({
@@ -25,7 +24,8 @@ export class IndexedDBComponent implements OnInit {
 
          // cette methode modifie les paramètres d'un utilisateur dans la base de données on lui fournit l'objet sous forme de dictionnaire {index : valeur}
   update(usertoUpdate : any) {
-     this.dbService.update('user',usertoUpdate).then(
+	  console.log(usertoUpdate);
+     this.dbService.update(usertoUpdate).then(
       ()=>{
          console.log('Informations modify successfully');
        },
@@ -79,7 +79,6 @@ getAlluser(){
 	public signInUser(manager:UserManagementComponent){
 		this.dbService.getAll().then(
 			users => {
-				console.log(users);
 				var found_user = null;
 				for(var i in users){
 					var user = users[i];

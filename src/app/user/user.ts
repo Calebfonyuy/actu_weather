@@ -24,34 +24,31 @@ export class User {
 	public setPhoto(photo){
 		this.photo = photo;
 	}
-	public setName(name){
+	public setName(name:string){
 		this.name = name;
 	}
-	public setSurname(surname){
+	public setSurname(surname:string){
 		this.surname = surname;
 	}
 	public setBirthday(birthday:Date){
 		this.birthday = birthday;
 	}
-	public setSex(sex){
-		if(sex.startsWith("masc")) this.sex = "Masculin";
-		else if(sex.startsWith("fem")) this.sex = "Feminine";
+	public setSex(sex:string){
+		if(sex.startsWith("m")||sex.startsWith("M")) this.sex = "Masculine";
+		else if(sex.startsWith("f")||sex.startsWith("F")) this.sex = "Feminine";
 		else this.sex = "Not Set";
 	}
 
-	public setId(id){
+	public setId(id:string){
 		this.id = id;
 	}
-	public setUsername(username){
+	public setUsername(username:string){
 		this.username = username;
 	}
-	public setPassword(password){
+	public setPassword(password:string){
 		this.password = password;
 	}
 
-	public getPassword(){
-		return this.password;
-	}
 
 	public getPhoto(){return this.photo;}
 	public getName(){return this.name;}
@@ -61,12 +58,14 @@ export class User {
 	public getAddress(){return this.active_address.getTown();}
 	public getUsername(){return this.username;}
 	public getId(){return this.id;}
+	public getAllAddresses(){return this.address;}
+	public getPassword(){return this.password;}
 
 	public setActiveAddress(index){
 		this.active_address = this.address[index];
 	}
 
-	public addAddress(addr, latitude, longitude){
+	public addAddress(addr:string, latitude:number, longitude:number){
 		this.address.push(new Address(addr, latitude, longitude));
 	}
 
@@ -76,12 +75,39 @@ export class User {
 
 	//Save or update current user instance to database
 	public save(manager:UserManagementComponent){
+		var user = this.createUserObject();
 		if(this.id){
-			this.dbase.update(this);
+			user['id'] = this.id;
+			this.dbase.update(user);
 		}else{
-			this.dbase.adduser(this, manager);
+			this.dbase.adduser(user, manager);
 		}
 	}
+
+	/*User object is not perfectly serializable hence the need to create this object all the time
+	Saving the user.*/
+	private createUserObject() {
+        var address = [];
+        var list = this.getAllAddresses();
+        for (var i in list) {
+            var add = {};
+            add['town'] = list[i].getTown();
+            add['latitude'] = list[i].getLattitude();
+            add['longitude'] = list[i].getLongitude();
+            address.push(add);
+        }
+        var save_user = {};
+        save_user['address'] = address;
+        save_user['name'] = this.getName();
+		save_user['sex'] = this.getSex();
+		save_user['photo']= this.getPhoto();
+        save_user['surname'] = this.getSurname();
+        save_user['username'] = this.getUsername();
+        save_user['password'] = this.getPassword();
+		save_user['birthday'] = this.getBirthday();
+
+		return save_user;
+    }
 
 	//Delete user from database
 	public delete(){

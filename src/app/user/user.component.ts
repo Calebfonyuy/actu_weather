@@ -12,6 +12,13 @@ export class UserComponent implements OnInit {
 	private add_addr:boolean = false;
 	private editing:boolean = false;
 	private new_address:Address = new Address(null, null, null);
+	private name:string;
+	private surname:string;
+	private sex:string;
+	private birthday:Date;
+	private username:string;
+	private password:string;
+	private password2:string;
 	@Input()
 	private user:User;
 	@Output()
@@ -22,23 +29,35 @@ export class UserComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	private copyValues(){
+		this.name = this.user.getName();
+		this.surname = this.user.getSurname();
+		this.sex = this.user.getSex();
+		this.birthday = this.user.getBirthday();
+		this.username = this.user.getUsername();
+		this.password = this.user.getPassword();
+		this.password2 = this.user.getPassword();
+		console.log("User values copied");
+	}
+
+	// Switch User Menu from hidden to showing and vice versa
 	toggleMenu(){
 		this.showmenu = !this.showmenu;
 	}
 
+	//Show or hide New Address Box
 	toggleAddAddr(){
 		this.add_addr = !this.add_addr;
 	}
 
+	//Add new Address
 	private addAddress(address:any){
-		console.log(address);
 		this.new_address.setPosition(address);
 	}
 
+	//Add the validated address to User
 	private addUserAddress(){
 		if(this.new_address.getTown()){
-			console.log(this.new_address);
-			console.log(this.user)
 			this.user.addNewAddress(this.new_address);
 			this.user.save(null);
 			this.new_address = new Address(null, null, null);
@@ -50,13 +69,33 @@ export class UserComponent implements OnInit {
 
 	switchMode(){
 		this.editing = !this.editing;
+		if(this.editing){
+			this.copyValues();
+		}
 	}
 
 	private logout(){
 		this.logout_event.emit();
 	}
 
+	//Switch Active user address
 	private changAddress(index){
 		this.user.setActiveAddress(index);
+	}
+
+	private updateUser(){
+		if(this.password != this.password2){
+			alert("Passwords don't correspond");
+			return false;
+		}
+		this.user.setName(this.name);
+		this.user.setSurname(this.surname);
+		this.user.setSex(this.sex);
+		this.user.setBirthday(this.birthday);
+		this.user.setPassword(this.password);
+		this.user.setUsername(this.username);
+		this.user.save(null);
+		this.editing = false;
+		console.log("User Updated");
 	}
 }
