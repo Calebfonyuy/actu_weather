@@ -17,6 +17,10 @@ export class weather_data {
       
         public city_name: string;
 
+        public id_icon: string;
+
+        public dt: string;
+
 
         constructor(){}
     
