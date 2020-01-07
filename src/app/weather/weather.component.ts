@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { weather_data } from './weather_data';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-
+	
 
 
 @Component({
@@ -90,7 +90,7 @@ export class WeatherComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.getData("weather");
+    //this.getData("weather");
     //this.getData("forecast");
     let dt_txt= "2020-01-06 21:00:00";
     
