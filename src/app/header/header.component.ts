@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 	private user:User;
 	@Output()
 	private address_emitter = new EventEmitter<any>();
+	private logo:any="app/img/logo_actu_weather.png";
 
   constructor() { }
 
