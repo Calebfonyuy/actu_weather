@@ -15,6 +15,7 @@ export class User {
 	private name:string;
 	private surname:string;
 	private birthday:Date;
+	private birthday_string:string;
 	private sex:string;
 
 	constructor(){
@@ -32,6 +33,7 @@ export class User {
 	}
 	public setBirthday(birthday:Date){
 		this.birthday = birthday;
+		this.birthday_string = ""+this.birthday.getFullYear()+"-"+this.birthday.getMonth()+"-"+this.birthday.getDate();
 	}
 	public setSex(sex:string){
 		if(sex.startsWith("m")||sex.startsWith("M")) this.sex = "Masculine";
@@ -54,6 +56,7 @@ export class User {
 	public getName(){return this.name;}
 	public getSurname(){return this.surname;}
 	public getBirthday(){return this.birthday;}
+	public getBirthdayString(){return this.birthday_string;};
 	public getSex(){return this.sex;}
 	public getAddress(){return this.active_address.getTown();}
 	public getUsername(){return this.username;}

@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
 	private name:string;
 	private surname:string;
 	private sex:string;
-	private birthday:Date;
+	private birthday:string;
 	private username:string;
 	private password:string;
 	private password2:string;
@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
 		this.name = this.user.getName();
 		this.surname = this.user.getSurname();
 		this.sex = this.user.getSex();
-		this.birthday = this.user.getBirthday();
+		this.birthday = this.user.getBirthdayString();
 		this.username = this.user.getUsername();
 		this.password = this.user.getPassword();
 		this.password2 = this.user.getPassword();
@@ -91,11 +91,26 @@ export class UserComponent implements OnInit {
 		this.user.setName(this.name);
 		this.user.setSurname(this.surname);
 		this.user.setSex(this.sex);
-		this.user.setBirthday(this.birthday);
+		this.user.setBirthday(new Date(this.birthday));
 		this.user.setPassword(this.password);
 		this.user.setUsername(this.username);
 		this.user.save(null);
 		this.editing = false;
 		console.log("User Updated");
 	}
+
+	private async changePhoto(event){
+		if(event.target.files.length>0){
+			var file_data = await toBase64(event.target.files[0]);
+			this.user.setPhoto(file_data);
+			this.user.save(null);
+		}
+	}
 }
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});

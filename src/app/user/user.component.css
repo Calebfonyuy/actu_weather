@@ -21,3 +21,22 @@
 .nav-item, .btn-link{
 	cursor: pointer;
 }
+
+.picture{
+	border-radius: 50%;
+	border: 1px solid #f00;
+}
+
+.picture-big{
+	min-width: 100px;
+	min-height: 100px;
+	max-width: 100px;
+	max-height: 100px;
+}
+
+.picture-small{
+	min-width: 40px;
+	min-height: 40px;
+	max-width: 40px;
+	max-height: 40px;
+}
