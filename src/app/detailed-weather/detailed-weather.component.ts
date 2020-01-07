@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailedWeatherComponent implements OnInit {
 
+
+  hourDisplay: boolean = true
+  dayDisplay: boolean = false
   constructor() { }
 
   ngOnInit() {
   }
 
+  public onHourDisplay(){
+    this.dayDisplay = false;
+    this.hourDisplay = true;
+  }
+
+  public onDayDisplay() {
+    this.hourDisplay = false
+    this.dayDisplay = true
+  }
 }
