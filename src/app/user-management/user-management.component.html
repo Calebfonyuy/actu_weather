@@ -1,15 +1,15 @@
-<div *ngIf="!signup" class="col-lg-3 col-md-3 ml-auto container-fluid bg-secondary p-3" id="signin-form">
+<div *ngIf="!signup" class="col-lg-5 col-md-5 ml-auto container-fluid bg-secondary p-3" id="signin-form">
 	<form class="form col-12 p-0 m-0" action="#" method="get" (submit)='signIn()'>
 		<div class="text-center font-weight-bold mt-2 mb-1">
 			Sign In to {{ app.title }}
 		</div>
 		<div class="input-group">
 			<label class="col-12 mt-3" for="username">Username</label>
-			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
+			<input type="text" [(ngModel)]="username" name="username" id="username" class="form-control" autocomplete="off" required>
 		</div>
 		<div class="input-group">
 			<label class="col-12 mt-3" for="password">Password</label>
-			<input type="password" name="password" id="password" class="form-control" autocomplete="off">
+			<input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" autocomplete="off" required>
 		</div>
 		<div class="input-group mt-3 row">
 			<div class="col-5 m-auto">
@@ -22,29 +22,32 @@
 	</form>
 </div>
 
-<div *ngIf="signup" class="col-lg-3 col-md-3 ml-auto container-fluid bg-secondary p-3" id="signup-form">
-	<form class="form col-12 p-0 m-0" action="#" method="get">
-		<div class="text-center font-weight-bold mt-2 mb-1">
+<div *ngIf="signup" class="col-lg-5 col-md-5 ml-auto container-fluid bg-secondary pt-0 pl-3 pr-3 pb-3" id="signup-form">
+	<form class="form col-12 p-0 m-0 row" action="#" method="get">
+		<div class="text-center font-weight-bold mt-2 mb-1 col-12">
 			Sign Up on {{ app.title }}
 		</div>
-		<div class="input-group">
+		<div class="col-12">
+			<legend>Profile</legend>
+		</div>
+		<div class="col-lg-6 col-md-6 m-auto input-group">
 			<label class="col-12" for="name">Name</label>
-			<input type="text" name="name" id="name" class="form-control" autocomplete="off">
+			<input type="text" [(ngModel)]="user.name" name="name" id="name" class="form-control" autocomplete="off">
 		</div>
-		<div class="input-group">
+		<div class="col-lg-6 col-md-6 m-auto input-group">
 			<label class="col-12" for="surname">Surname</label>
-			<input type="text" name="surname" id="surname" class="form-control" autocomplete="off">
+			<input type="text" [(ngModel)]="user.surname" name="surname" id="surname" class="form-control" autocomplete="off">
 		</div>
-		<div class="input-group">
+		<div class="col-lg-6 col-md-6 m-auto input-group">
 			<label class="col-12" for="birthday">Birthday</label>
-			<input type="date" name="birthday" id="birthday" class="form-control">
+			<input type="date" [(ngModel)]="user.birthday" name="birthday" id="birthday" class="form-control">
 		</div>
-		<div class="input-group mt-1 row">
-			<label class="col-2">Gender</label>
-			<div class="col-10 row">
+		<div class="col-lg-6 col-md-6 m-auto input-group mt-1 row">
+			<label class="col-12">Gender</label>
+			<div class="col-12 mt-1 row">
 				<div class="col-6 m-auto row">
 					<div class="col-1">
-						<input type="radio" name="sex" id="masculin">
+						<input type="radio" [(ngModel)]='user.sex' name="sex" value="Masculin" id="masculin">
 					</div>
 					<div class="col-1">
 						<label for="masculin">Masculin</label>
@@ -52,7 +55,7 @@
 				</div>
 				<div class="col-6 m-auto row">
 					<div class="col-1">
-						<input type="radio" name="sex" id="feminin">
+						<input type="radio" [(ngModel)]='user.sex' name="sex" value="Feminin" id="feminin">
 					</div>
 					<div class="col-1">
 						<label for="feminin">Feminin</label>
@@ -60,13 +63,21 @@
 				</div>
 			</div>
 		</div>
-		<div class="input-group">
-			<label class="col-12" for="username">Username</label>
-			<input type="text" name="username" id="username" class="form-control" autocomplete="off">
+		<div class="col-12 mt-2">
+			<hr>
+			<legend>Account</legend>
 		</div>
-		<div class="input-group">
-			<label class="col-12" for="password">Password</label>
-			<input type="password" name="password" id="password" class="form-control" autocomplete="off">
+		<div class="col-12 m-auto input-group">
+			<label class="col-12" for="username2">Username</label>
+			<input type="text" [(ngModel)]="user.username" name="username" id="username2" class="form-control" autocomplete="off">
+		</div>
+		<div class="col-lg-6 col-md-6 m-auto input-group">
+			<label class="col-12" for="password2">Password</label>
+			<input type="password" [(ngModel)]="user.password" name="password" id="password2" class="form-control" autocomplete="off">
+		</div>
+		<div class="col-lg-6 col-md-6 m-auto input-group">
+			<label class="col-12 mt-3" for="password3">Password <span id="grayed">(Confirmation)</span></label>
+			<input type="password" [(ngModel)]="password" name="password" id="password3" class="form-control" autocomplete="off">
 		</div>
 		<div class="input-group mt-3 row">
 			<div class="col-5 m-auto">

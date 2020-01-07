@@ -1,6 +1,6 @@
 <ul class="nav">
 	<li class="nav-item">
-		<span class="font-weight-bold">{{ user.name }}</span>
+		<span class="font-weight-bold text-uppercase">{{ user.name }}</span>
 	</li>
 	<li class="nav-item ml-3 btn-link" (click)='logout()'>
 		Logout
@@ -32,8 +32,8 @@
 				<div class="">
 					Born on <span class="font-weight-bold">{{ user.birthday.toDateString() }}</span>
 				</div>
-				<div class="">
-					Currently at <span class="font-weight-bold">{{ user.active_address }}</span>
+				<div class="" *ngIf="user.active_address">
+					Currently at <span class="font-weight-bold">{{ user.active_address.getTown() }}</span>
 				</div>
 			</div>
 			<div class="col-12">
@@ -46,60 +46,40 @@
 					</div>
 					<div class="col-4 text-right">
 						<span class="btn fa fa-plus" (click)='toggleAddAddr()'></span>
-						<form *ngIf='add_addr' class="form p-3 bg-light border border-success text-left"
-								action="#" method="get" id="address-form">
-							<legend>New Address</legend>
-							<div class="input-group row">
-								<div class="col-3">
-									<label for="naddr">Town</label>
-								</div>
-								<div class="col-9 m-auto">
-									<input type="text" name="naddr" class="form-control" autocomplete="off">
-								</div>
-							</div>
-							<div class="input-group mt-2 row">
-								<div class="col-5 m-auto">
-									<button type="reset" class="btn btn-danger w-100" (click)='toggleAddAddr()'>Cancel</button>
-								</div>
-								<div class="col-5 m-auto">
-									<button type="submit" class="btn btn-success w-100">Add</button>
-								</div>
-							</div>
-						</form>
 					</div>
 				</div>
 
-				<ul *ngFor="let town of user.address; index as i">
-					<li *ngIf='town == user.active_address' class="font-weight-bold">
-						{{ town }} <span class="fa fa-check"></span>
+				<ul *ngFor="let address of user.address; index as i">
+					<li *ngIf='address == user.active_address' class="font-weight-bold">
+						{{ address.getTown() }} <span class="fa fa-check"></span>
 					</li>
-					<li *ngIf='town != user.active_address' class="btn-link" (click)="changAddress(i)">{{ town }}</li>
+					<li *ngIf='address != user.active_address' class="btn-link" (click)="changAddress(i)">{{ address.getTown() }}</li>
 				</ul>
 			</div>
 		</div>
 		<div class="row" *ngIf='editing'>
-			<form class="form col-12 p-0 m-0" action="#" method="get">
+			<form class="form col-12 p-0 m-0" action="#" method="get" (submit)="updateUser()">
 				<div class="text-center font-weight-bold mt-2 mb-1">
 					Update Account Information
 				</div>
 				<div class="input-group">
 					<label class="col-12" for="name">Name</label>
-					<input type="text" name="name" id="name" class="form-control" autocomplete="off" value="{{ user.name }}">
+					<input type="text" [(ngModel)]="name" name="name" id="name" class="form-control" autocomplete="off">
 				</div>
 				<div class="input-group">
 					<label class="col-12" for="surname">Surname</label>
-					<input type="text" name="surname" id="surname" class="form-control" autocomplete="off" value="{{user.surname}}">
+					<input type="text" [(ngModel)]="surname" name="surname" id="surname" class="form-control" autocomplete="off">
 				</div>
 				<div class="input-group">
 					<label class="col-12" for="birthday">Birthday</label>
-					<input type="date" name="birthday" id="birthday" class="form-control" value="user.birthday">
+					<input type="date" [(ngModel)]="birthday" name="birthday" id="birthday" class="form-control">
 				</div>
 				<div class="input-group mt-1 row">
 					<label class="col-2">Gender</label>
 					<div class="col-10 row">
 						<div class="col-6 m-auto row">
 							<div class="col-1">
-								<input type="radio" name="sex" id="masculin">
+								<input type="radio" [(ngModel)]="sex" name="sex" id="masculin" value="Masculine">
 							</div>
 							<div class="col-1">
 								<label for="masculin">Masculin</label>
@@ -107,7 +87,7 @@
 						</div>
 						<div class="col-6 m-auto row">
 							<div class="col-1">
-								<input type="radio" name="sex" id="feminin">
+								<input type="radio" [(ngModel)]="sex" name="sex" id="feminin" value="Feminine">
 							</div>
 							<div class="col-1">
 								<label for="feminin">Feminin</label>
@@ -117,11 +97,15 @@
 				</div>
 				<div class="input-group">
 					<label class="col-12" for="username">Username</label>
-					<input type="text" name="username" id="username" class="form-control" autocomplete="off" value="{{user.username}}">
+					<input type="text" [(ngModel)]="username" name="username" id="username" class="form-control" autocomplete="off">
 				</div>
 				<div class="input-group">
 					<label class="col-12" for="password">Password</label>
-					<input type="password" name="password" id="password" class="form-control" autocomplete="off">
+					<input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" autocomplete="off">
+				</div>
+				<div class="input-group">
+					<label class="col-12" for="password">Confirm Password</label>
+					<input type="password" [(ngModel)]="password2" name="password2" id="password2" class="form-control" autocomplete="off">
 				</div>
 				<div class="input-group mt-3 row">
 					<div class="col-5 m-auto">
@@ -134,4 +118,30 @@
 			</form>
 		</div>
 	</div>
+</div>
+
+<div class="container-fluid border">
+	<form *ngIf='add_addr' class="form p-3 bg-light border border-success text-left"
+			action="#" method="get" id="address-form">
+		<legend>New Address</legend>
+		<div class="input-group row">
+			<div class="col-3">
+				<label for="naddr">Town</label>
+			</div>
+			<div class="col-9 m-auto">
+				<input type="text" [(ngModel)]="new_address.town" name="newTown" placeholder="Name of Town">
+			</div>
+			<div class="col-12 m-auto">
+				<app-osmap (emit_position)="addAddress($event)"></app-osmap>
+			</div>
+		</div>
+		<div class="input-group row">
+			<div class="col-5 m-auto">
+				<button type="reset" class="btn btn-danger w-100" (click)='toggleAddAddr()'>Cancel</button>
+			</div>
+			<div class="col-5 m-auto">
+				<button type="submit" class="btn btn-success w-100" (click)='addUserAddress()'>Add</button>
+			</div>
+		</div>
+	</form>
 </div>

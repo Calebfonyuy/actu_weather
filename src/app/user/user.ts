@@ -1,54 +1,116 @@
 import { Address } from './address';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { IndexedDBComponent } from '../indexed-db/indexed-db.component';
+import { dbConfig } from '../configuration/db-config';
+import { UserManagementComponent } from '../user-management/user-management.component';
 
 export class User {
+	private id:any;
 	private address:Address[] = new Array<Address>();//List of all addresses associated with user
 	private active_address:Address;
-	constructor(private photo :string,
-  			  private name:string,
-  			  private surname:string,
-  			  private birthday:Date,
-  			  private sex:string){
+	private username:string;
+	private password:string;
+	private dbase:IndexedDBComponent;
+	private photo:string;
+	private name:string;
+	private surname:string;
+	private birthday:Date;
+	private sex:string;
 
+	constructor(){
+		this.dbase = new IndexedDBComponent(new NgxIndexedDBService(dbConfig))
 	}
 
-	public setphoto(photo){
+	public setPhoto(photo){
 		this.photo = photo;
 	}
-	public setname(name){
+	public setName(name:string){
 		this.name = name;
 	}
-	public setsurname(surname){
+	public setSurname(surname:string){
 		this.surname = surname;
 	}
-	public setbirthday(birthday:Date){
+	public setBirthday(birthday:Date){
 		this.birthday = birthday;
 	}
-	public setsex(sex){
-		if(sex.startsWith("masc")) this.sex = "Masculin";
-		else if(sex.startsWith("fem")) this.sex = "Feminine";
+	public setSex(sex:string){
+		if(sex.startsWith("m")||sex.startsWith("M")) this.sex = "Masculine";
+		else if(sex.startsWith("f")||sex.startsWith("F")) this.sex = "Feminine";
 		else this.sex = "Not Set";
 	}
 
-	public getphoto(){return this.photo;}
-	public getname(){return this.name;}
-	public getsurname(){return this.surname;}
-	public getbirthday(){return this.birthday.toDateString();}
-	public getsex(){return this.sex;}
-	public getaddress(){return this.active_address.town;}
+	public setId(id:string){
+		this.id = id;
+	}
+	public setUsername(username:string){
+		this.username = username;
+	}
+	public setPassword(password:string){
+		this.password = password;
+	}
+
+
+	public getPhoto(){return this.photo;}
+	public getName(){return this.name;}
+	public getSurname(){return this.surname;}
+	public getBirthday(){return this.birthday;}
+	public getSex(){return this.sex;}
+	public getAddress(){return this.active_address.getTown();}
+	public getUsername(){return this.username;}
+	public getId(){return this.id;}
+	public getAllAddresses(){return this.address;}
+	public getPassword(){return this.password;}
 
 	public setActiveAddress(index){
 		this.active_address = this.address[index];
 	}
 
-	public addAddress(addr){
-		this.address.push(new Address(addr));
+	public addAddress(addr:string, latitude:number, longitude:number){
+		this.address.push(new Address(addr, latitude, longitude));
 	}
 
-	public save(){
-
+	public addNewAddress(address:Address){
+		this.address.push(address);
 	}
 
+	//Save or update current user instance to database
+	public save(manager:UserManagementComponent){
+		var user = this.createUserObject();
+		if(this.id){
+			user['id'] = this.id;
+			this.dbase.update(user);
+		}else{
+			this.dbase.adduser(user, manager);
+		}
+	}
+
+	/*User object is not perfectly serializable hence the need to create this object all the time
+	Saving the user.*/
+	private createUserObject() {
+        var address = [];
+        var list = this.getAllAddresses();
+        for (var i in list) {
+            var add = {};
+            add['town'] = list[i].getTown();
+            add['latitude'] = list[i].getLattitude();
+            add['longitude'] = list[i].getLongitude();
+            address.push(add);
+        }
+        var save_user = {};
+        save_user['address'] = address;
+        save_user['name'] = this.getName();
+		save_user['sex'] = this.getSex();
+		save_user['photo']= this.getPhoto();
+        save_user['surname'] = this.getSurname();
+        save_user['username'] = this.getUsername();
+        save_user['password'] = this.getPassword();
+		save_user['birthday'] = this.getBirthday();
+
+		return save_user;
+    }
+
+	//Delete user from database
 	public delete(){
-
+		this.dbase.delete(this.id);
 	}
 }

@@ -10,8 +10,12 @@
 
 #address-form{
 	position: fixed;
-	right: 20px;
-	margin-top: -50px;
+	top: 20px;
+	right: calc(50% - 40px);
+	margin: auto;
+	width: 450px;
+	height: 550px;
+	overflow-y: scroll;
 }
 
 .nav-item, .btn-link{

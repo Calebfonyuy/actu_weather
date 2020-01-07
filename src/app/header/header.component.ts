@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+	// Switch Header Status according to received action values
 	public switchAction(type){
 		this.signup = false;
 		this.action = !this.action;
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit {
 		}
 	}
 
+	// change current User object
 	public updateUser(nuser:User){
 		this.user = nuser;
 		this.action = false;

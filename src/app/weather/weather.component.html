@@ -1,6 +1,22 @@
- <!--<p *ngIf= "donnee">it works  nom de la ville {{donnee.city_name}}--- longitude {{longitude}}-- Temperature {{donnee.temperature}}</p>
-
-<p *ngIf="forecast_data">it works  nom de la ville {{forecast_data[1].city_name}}--- longitude {{forecast_data[1].longitude}}--- date et heure{{forecast_data[1].dt}}-- Temperature {{forecast_data[1].temperature}}</p>
- -->
-<p>date : {{get_namedate("2020-01-07")}}</p>
-<img [src]="get_image_icon('11d')" alt="">
+<div class="page">
+  <div class="bloc1">
+    <h2 class="city">Yaounde</h2>
+    <div class="bloc-temp">
+      <div class="temp">
+        <h1 class="temperature">{{temp-actu}} °C</h1>
+        <img src="" alt="img" class="img-actu">
+        <div class="info-sup">
+          <div class="humidite">
+            <h6>Humidite</h6>
+            <h6>{{hum-actu}}</h6>
+          </div>
+          <div class="pluviometrie">
+              <h6>Pluviometrie</h6>
+              <h6>{{plu-actu}}</h6>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-detailed-weather></app-detailed-weather>
+</div>

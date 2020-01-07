@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { weather_data } from './weather_data';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-	
+
 
 
 @Component({
