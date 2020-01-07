@@ -1,1 +1,6 @@
-<p>it works  nom de la ville {{donnee.city_name}}--- longitude {{longitude}}-- Temperature {{donnee.temperature}}</p>
+ <!--<p *ngIf= "donnee">it works  nom de la ville {{donnee.city_name}}--- longitude {{longitude}}-- Temperature {{donnee.temperature}}</p>
+
+<p *ngIf="forecast_data">it works  nom de la ville {{forecast_data[1].city_name}}--- longitude {{forecast_data[1].longitude}}--- date et heure{{forecast_data[1].dt}}-- Temperature {{forecast_data[1].temperature}}</p>
+ -->
+<p>date : {{get_namedate("2020-01-07")}}</p>
+<img [src]="get_image_icon('11d')" alt="">
