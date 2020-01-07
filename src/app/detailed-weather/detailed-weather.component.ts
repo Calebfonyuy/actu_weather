@@ -15,12 +15,12 @@ export class DetailedWeatherComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onHourDisplay(){
+  onHourDisplay(){
     this.dayDisplay = false;
     this.hourDisplay = true;
   }
 
-  public onDayDisplay() {
+  onDayDisplay() {
     this.hourDisplay = false
     this.dayDisplay = true
   }

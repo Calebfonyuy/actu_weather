@@ -1,10 +1,10 @@
 <div class="main-detail">
   <nav class="nav">
-    <p onclick="onHourDisplay()">Toutes les heures</p>
-    <p onclick="onDayDisplay()">Hebdomadaire</p>
+    <p (click)="onHourDisplay()">Toutes les heures</p>
+    <p (click)="onDayDisplay()">Hebdomadaire</p>
   </nav>
   
-  <div class="bloc" *ngIf="hourDisplay == true">
+  <div class="bloc" [hidden] = "dayDisplay">
     <div class="hour-display">
       <h3>15h00</h3>
       <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="img" class="time-img">
