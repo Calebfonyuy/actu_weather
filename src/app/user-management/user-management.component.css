@@ -4,12 +4,36 @@
 	top: 50px;
 	box-shadow: 3px 3px 5px #c0c0c0,
 				-3px 3px 5px #c0c0c0;
-	overflow-y: scroll;
+	background-color: rgba(165, 170, 177, 0.6);
+	border-radius: 20px;
+	z-index: 2000;
 }
 
 #signup-form{
 	bottom: 20px;
 	max-height: 100%;
+	overflow-y: scroll;
+	height: 100vh;
+}
+
+#signin-form{
+
+}
+
+#signin-form input, #signup-form input{
+	border-radius: 20px;
+}
+
+button{
+	border-radius: 10px;
+}
+
+#signin-form button{
+	width: 60%;
+}
+
+#signup-form button{
+	width: 100% !important;
 }
 
 .input-group>label{
@@ -25,4 +49,13 @@ input[type=password]{
 
 #grayed{
 	opacity:45%;
+}
+
+.btn-success{
+	background-color: rgba(76, 90, 177, 1) !important;
+	border-color: rgba(76, 90, 177, 1) !important;
+}
+
+.btn-danger{
+	background-color: rgba(230, 0, 68, 0.7) !important;
 }

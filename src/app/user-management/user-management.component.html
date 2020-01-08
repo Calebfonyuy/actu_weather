@@ -1,7 +1,13 @@
-<div *ngIf="!signup" class="col-lg-5 col-md-5 ml-auto container-fluid bg-secondary p-3" id="signin-form">
+<div *ngIf="!signup" class="col-lg-5 col-md-5 ml-auto container-fluid p-3" id="signin-form">
 	<form class="form col-12 p-0 m-0" action="#" method="get" (submit)='signIn()'>
+		<div class="m-auto p-auto h1 text-center">
+			<span class="fa fa-user-circle"></span>
+		</div>
 		<div class="text-center font-weight-bold mt-2 mb-1">
-			Sign In to {{ app.title }}
+			{{ app.title }}
+		</div>
+		<div class="col-12 text-center text-danger">
+			{{ in_message }}
 		</div>
 		<div class="input-group">
 			<label class="col-12 mt-3" for="username">Username</label>
@@ -11,24 +17,19 @@
 			<label class="col-12 mt-3" for="password">Password</label>
 			<input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" autocomplete="off" required>
 		</div>
-		<div class="input-group mt-3 row">
-			<div class="col-5 m-auto">
-				<button type="reset" name="reset" class="btn btn-danger" (click)='cancelAction()'>Cancel</button>
-			</div>
-			<div class="col-6">
-				<button type="submit" name="submit" class="btn btn-success">Sign In</button>
-			</div>
+		<div class="input-group mt-5">
+			<button type="submit" name="submit" class="btn btn-success mr-auto ml-auto">Sign In</button>
 		</div>
 	</form>
 </div>
 
-<div *ngIf="signup" class="col-lg-5 col-md-5 ml-auto container-fluid bg-secondary pt-0 pl-3 pr-3 pb-3" id="signup-form">
+<div *ngIf="signup" class="col-lg-5 col-md-5 ml-auto container-fluid pt-0 pl-3 pr-3 pb-3" id="signup-form">
 	<form class="form col-12 p-0 m-0 row" action="#" method="get">
-		<div class="text-center font-weight-bold mt-2 mb-1 col-12">
-			Sign Up on {{ app.title }}
+		<div class="text-center font-weight-bold mb-1 col-12 h2">
+			{{ app.title }} <span class="ml-2">Sign Up</span>
 		</div>
-		<div class="col-12">
-			<legend>Profile</legend>
+		<div class="col-12 text-center text-danger">
+			{{ up_message }}
 		</div>
 		<div class="col-lg-6 col-md-6 m-auto input-group">
 			<label class="col-12" for="name">Name</label>
@@ -38,34 +39,30 @@
 			<label class="col-12" for="surname">Surname</label>
 			<input type="text" [(ngModel)]="user.surname" name="surname" id="surname" class="form-control" autocomplete="off">
 		</div>
-		<div class="col-lg-6 col-md-6 m-auto input-group">
+		<div class="col-lg-6 col-md-6 input-group">
 			<label class="col-12" for="birthday">Birthday</label>
 			<input type="date" [(ngModel)]="user.birthday" name="birthday" id="birthday" class="form-control">
 		</div>
 		<div class="col-lg-6 col-md-6 m-auto input-group mt-1 row">
 			<label class="col-12">Gender</label>
 			<div class="col-12 mt-1 row">
-				<div class="col-6 m-auto row">
+				<div class="col-12 m-auto row">
 					<div class="col-1">
 						<input type="radio" [(ngModel)]='user.sex' name="sex" value="Masculin" id="masculin">
 					</div>
 					<div class="col-1">
-						<label for="masculin">Masculin</label>
+						<label for="masculin">Masculine</label>
 					</div>
 				</div>
-				<div class="col-6 m-auto row">
+				<div class="col-12 m-auto row">
 					<div class="col-1">
 						<input type="radio" [(ngModel)]='user.sex' name="sex" value="Feminin" id="feminin">
 					</div>
 					<div class="col-1">
-						<label for="feminin">Feminin</label>
+						<label for="feminin">Feminine</label>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-12 mt-2">
-			<hr>
-			<legend>Account</legend>
 		</div>
 		<div class="col-12 m-auto input-group">
 			<label class="col-12" for="username2">Username</label>
@@ -79,12 +76,12 @@
 			<label class="col-12 mt-3" for="password3">Password <span id="grayed">(Confirmation)</span></label>
 			<input type="password" [(ngModel)]="password" name="password" id="password3" class="form-control" autocomplete="off">
 		</div>
-		<div class="input-group mt-3 row">
-			<div class="col-5 m-auto">
-				<button type="reset" name="reset" class="btn btn-danger" (click)='cancelAction()'>Cancel</button>
+		<div class="input-group col-11 mr-auto ml-auto mt-3 row">
+			<div class="col-5 mr-auto">
+				<button type="reset" name="reset" class="btn btn-danger m-auto" (click)='cancelAction()'>Cancel</button>
 			</div>
-			<div class="col-6">
-				<button type="submit" name="submit" class="btn btn-success" (click)='signUp()'>Sign Up</button>
+			<div class="col-5 ml-auto">
+				<button type="submit" name="submit" class="btn btn-success m-auto" (click)='signUp()'>Sign Up</button>
 			</div>
 		</div>
 	</form>

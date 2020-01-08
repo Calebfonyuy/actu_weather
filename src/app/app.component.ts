@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Actu-Weather';
+  title = 'Actu Weather';
   address = 'Melen';
+  private loggedIn:boolean = false;
+
+  private updateAppStatus(){
+	 this.loggedIn = !this.loggedIn;
+  }
 }

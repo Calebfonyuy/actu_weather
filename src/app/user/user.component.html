@@ -21,7 +21,7 @@
 				<div class="m-1">
 					<img src="{{ user.photo }}" alt="IMAGE" class="picture picture-big">
 				</div>
-				<div class="m-1">
+				<div class="m-1 text-center">
 					<span class="btn-link" onclick="document.getElementById('profile_pic').click()">Change</span>
 					<form (submit)="changePhoto()">
 						<input type="file" name="profile_pic" id="profile_pic" hidden="hidden"
@@ -57,10 +57,22 @@
 				</div>
 
 				<ul *ngFor="let address of user.address; index as i">
-					<li *ngIf='address == user.active_address' class="font-weight-bold">
-						{{ address.getTown() }} <span class="fa fa-check"></span>
+					<li *ngIf='address == user.active_address' class="font-weight-bold row">
+						<div class="col-8">
+							{{ address.getTown() }} <span class="fa fa-check"></span>
+						</div>
+						<div class="col-3 m-auto">
+							<span class="fa fa-cross"></span>
+						</div>
 					</li>
-					<li *ngIf='address != user.active_address' class="btn-link" (click)="changAddress(i)">{{ address.getTown() }}</li>
+					<li *ngIf='address != user.active_address' class="row">
+						<div class="btn-link col-8" (click)="changAddress(i)">
+							{{ address.getTown() }}
+						</div>
+						<div class="btn-link col-3 m-auto" (click)="deleteAddress(i)">
+							<span class="text-danger fa fa-times"></span>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>

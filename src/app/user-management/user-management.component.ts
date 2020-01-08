@@ -16,6 +16,8 @@ export class UserManagementComponent implements OnInit {
 	public username:string;
 	private password:string;
 	private debcon:IndexedDBComponent;
+	private in_message:string = '';
+	private up_message:string = '';
 
 	private user:User = new User();
 	private app:AppComponent = new AppComponent();
@@ -42,11 +44,12 @@ export class UserManagementComponent implements OnInit {
 		if(this.user.getName() && this.user.getSurname() && this.user.getBirthday() && this.user.getUsername() && this.user.getPassword() && this.user.getSex()){
 			if(this.user.getPassword() == this.password){
 				this.user.save(this);
+				this.up_message = '';
 			}else{
-				alert('Passwords don\'t match');
+				this.up_message= 'Passwords don\'t match';
 			}
 		}else{
-			alert('Fill in all fields');
+			this.up_message='Fill in all fields';
 		}
 	}
 
@@ -68,7 +71,7 @@ export class UserManagementComponent implements OnInit {
 	// Recreate new User Object from inforomation about user signed in.
 	public completSignIn(user:any){
 		if(user === null){
-			alert("Account Not found");
+			this.in_message = "Account Not found";
 		}else if(this.password == user['password']){
 			var found_user = new User();
 			found_user.setId(user.id);
@@ -85,7 +88,7 @@ export class UserManagementComponent implements OnInit {
 			this.user = found_user;
 			this.emit_user.emit(found_user);
 		}else{
-			alert("Wrong Password");
+			this.in_message = "Wrong Password";
 		}
 	}
 }

@@ -83,6 +83,11 @@ export class UserComponent implements OnInit {
 		this.user.setActiveAddress(index);
 	}
 
+	private deleteAddress(index){
+		this.user.removeAddress(index);
+		this.user.save(null);
+	}
+
 	private updateUser(){
 		if(this.password != this.password2){
 			alert("Passwords don't correspond");

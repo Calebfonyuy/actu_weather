@@ -1,8 +1,5 @@
-<div class="navbar navbar-light shadow bg-light fixed-top">
-	<div class="navbar-brand">
-		<img src="assets/logo_actu_weather.png" height="30">
-		Actu-Weather
-	</div>
+<div class="navbar shadow fixed-top" id="header">
+	<img src="assets/logo.png" height="60">
 	<div *ngIf="user" class="nav navbar navbar-nav">
 		<app-user  [user] = "user" (logout_event) = 'logoutUser($event)'></app-user>
 	</div>

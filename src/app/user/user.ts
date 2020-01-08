@@ -72,6 +72,10 @@ export class User {
 		this.address.push(new Address(addr, latitude, longitude));
 	}
 
+    public removeAddress(index: number) {
+        this.address.splice(index,1);
+    }
+
 	public addNewAddress(address:Address){
 		this.address.push(address);
 	}
