@@ -187,6 +187,6 @@ export class DetailedWeatherComponent implements OnInit {
     this.getData("forecast");
     setTimeout(() => {
       this.fill_data(this.forecast_data)
-    }, 1000)
+    }, 2000)
   }
 }

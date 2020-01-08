@@ -33,22 +33,35 @@
   padding: 40px;
 }
 
+.temp img{
+  width: 80px;
+  height: 80px;
+}
+.temp p{
+  color: rgb(172, 197, 164);
+  font-size: 20px;
+}
 .info-sup{
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.info-sup .humidite{
+.info-sup .humidity{
   padding-right: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.info-sup .pluviometrie{
-  padding-left: 15px;
+.info-sup .pressure{
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.info-sup .wind{
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

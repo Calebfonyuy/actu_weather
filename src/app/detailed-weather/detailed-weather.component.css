@@ -26,6 +26,7 @@
 
 .nav p:hover{
   cursor: pointer;
+  background-color: rgb(175, 123, 123);
 }
 
 .nav p:nth-child(1){
@@ -42,6 +43,7 @@
   width: 158px;
   height: 210px;
   margin-bottom: 20px;
+  padding-top: 10px;
   background-color: rgba(255, 255, 255, 0.15);
 
   display: flex;
@@ -67,4 +69,11 @@
   padding-left: 15px;
 }
 
+.days:hover{
+  background-color: rgba(175, 123, 123, 0.35);
+  cursor: pointer;
+}
 
+.blocPlus{
+  margin-top: 20px;
+}

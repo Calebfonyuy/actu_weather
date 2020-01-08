@@ -1,7 +1,7 @@
 <div class="main-detail">
   <nav class="nav">
-    <p (click)="onHourDisplay()">Toutes les heures</p>
-    <p (click)="onDayDisplay()">Hebdomadaire</p>
+    <p (click)="onHourDisplay()">Hourly forecast</p>
+    <p (click)="onDayDisplay()">Weekly forecast</p>
   </nav>
   
   <div class="bloc" [hidden] = "hourHidden">
@@ -11,22 +11,22 @@
       <div>
         <h5>
           <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
-          {{hour.temperature}}
+          {{hour.temperature}} °C
         </h5>
         <h6>
           <i class="fa fa-tint" aria-hidden="true"></i>
-          {{hour.humidity}}
+          {{hour.humidity}} %
         </h6>
         <h6>
-          <i class="fa fa-fire" aria-hidden="true"></i>
-          {{hour.rainfall}}
+          <i class="fa fa-flag" aria-hidden="true"></i>
+          {{hour.wind_speed}} m/s
         </h6>
       </div>
     </div>
   </div>
 
   <div class="bloc" [hidden] = "dayHidden">
-    <div class="hour-display" *ngFor="let day of weekly_data">
+    <div class="hour-display days" *ngFor="let day of weekly_data">
       <h4>{{day.name}}</h4>
       <img src={{day.img_url}} alt="img" class="time-img">
       <div>
@@ -36,13 +36,40 @@
         </h6>
         <h6>
           <i class="fa fa-tint" aria-hidden="true"></i>
-          {{day.humidity[0]}} - {{day.humidity[1]}} (g/m³)
+          {{day.humidity[0]}} - {{day.humidity[1]}} (%)
         </h6>
         <h6>
-          <i class="fa fa-fire" aria-hidden="true"></i>
-          {{day.rainfall}}
+          <i class="fa fa-flag" aria-hidden="true"></i>
+          {{day.windspeed}} (m/s)
         </h6>
       </div>
     </div>
   </div>
+
+  <!--hourly display for weekly data forecast-->
+  <!--
+  <div [hidden] = "detailsHidden" class="blocPlus">
+    <h4>Hourly forecast for {{day name and date}}</h4>
+    <div class="bloc">
+      <div class="hour-display" *ngFor="let hour of hourly_data">
+        <h5>{{hour.name}}</h5>
+        <img src={{hour.img_url}} alt="img" class="time-img">
+        <div>
+          <h5>
+            <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+            {{hour.temperature}} °C
+          </h5>
+          <h6>
+            <i class="fa fa-tint" aria-hidden="true"></i>
+            {{hour.humidity}} %
+          </h6>
+          <h6>
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            {{hour.wind_speed}} m/s
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
 </div>
