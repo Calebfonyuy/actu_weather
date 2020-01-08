@@ -12,7 +12,8 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { WeatherComponent } from './weather/weather.component';
 import { IndexedDBComponent } from './indexed-db/indexed-db.component';
 import {OsmapComponent} from './osmap/osmap.component';
-import { DetailedWeatherComponent } from './detailed-weather/detailed-weather.component'
+import { DetailedWeatherComponent } from './detailed-weather/detailed-weather.component';
+import { PasswordCheckDirective } from './directives/password-check.directive'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DetailedWeatherComponent } from './detailed-weather/detailed-weather.co
     UserManagementComponent,
     WeatherComponent,
     OsmapComponent,
-    DetailedWeatherComponent
+    DetailedWeatherComponent,
+    PasswordCheckDirective
   ],
   imports: [
     BrowserModule,
