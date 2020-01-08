@@ -1,50 +1,48 @@
 <div class="main-detail">
   <nav class="nav">
-    <p>Toutes les heures</p>
-    <p>Hebdomadaire</p>
+    <p (click)="onHourDisplay()">Toutes les heures</p>
+    <p (click)="onDayDisplay()">Hebdomadaire</p>
   </nav>
-  <div class="bloc">
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
+  
+  <div class="bloc" [hidden] = "hourHidden">
+    <div class="hour-display" *ngFor="let hour of hourly_data">
+      <h5>{{hour.name}}</h5>
+      <img src={{hour.img_url}} alt="img" class="time-img">
+      <div>
+        <h5>
+          <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+          {{hour.temperature}}
+        </h5>
+        <h6>
+          <i class="fa fa-tint" aria-hidden="true"></i>
+          {{hour.humidity}}
+        </h6>
+        <h6>
+          <i class="fa fa-fire" aria-hidden="true"></i>
+          {{hour.rainfall}}
+        </h6>
+      </div>
     </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
+  </div>
+
+  <div class="bloc" [hidden] = "dayHidden">
+    <div class="hour-display" *ngFor="let day of weekly_data">
+      <h4>{{day.name}}</h4>
+      <img src={{day.img_url}} alt="img" class="time-img">
+      <div>
+        <h6>
+          <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+          {{day.temperature[0]}} - {{day.temperature[1]}} (°C)
+        </h6>
+        <h6>
+          <i class="fa fa-tint" aria-hidden="true"></i>
+          {{day.humidity[0]}} - {{day.humidity[1]}} (g/m³)
+        </h6>
+        <h6>
+          <i class="fa fa-fire" aria-hidden="true"></i>
+          {{day.rainfall}}
+        </h6>
+      </div>
     </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div> 
   </div>
 </div>
