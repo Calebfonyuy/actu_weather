@@ -4,14 +4,14 @@
     <div class="bloc-temp">
       <div class="temp">
         <h1 class="temperature">{{donnee.temperature}} °C</h1>
-        <img src="" alt="img" class="img-actu">
+        <img src={{get_image_icon(donnee.id_icon)}} alt="img" class="img-actu">
         <div class="info-sup">
           <div class="humidite">
             <h6>Humidite</h6>
             <h6>{{donnee.humidity}}</h6>
           </div>
           <div class="pluviometrie">
-              <h6>Pluviometrie</h6>
+              <h6>Pression</h6>
               <h6>{{donnee.pressure}}</h6>
             </div>
         </div>

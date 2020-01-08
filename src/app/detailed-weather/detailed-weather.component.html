@@ -4,28 +4,9 @@
     <p (click)="onDayDisplay()">Hebdomadaire</p>
   </nav>
   
-  <div class="bloc" [hidden] = "dayDisplay">
-    <div class="hour-display">
-      <h3>15h00</h3>
-      <img src="http://openweathermap.org/img/wn/11d@2x.png" alt="img" class="time-img">
-      <div>
-        <h5>
-          <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
-          18 °C
-        </h5>
-        <h6>
-          <i class="fa fa-tint" aria-hidden="true"></i>
-          10%
-        </h6>
-        <h6>
-          <i class="fa fa-fire" aria-hidden="true"></i>
-          25
-        </h6>
-      </div>
-    </div>
-
-    <div class="hour-display" *ngFor="let hour of hourly-display">
-      <h3>{{hour-display.name}}</h3>
+  <div class="bloc" [hidden] = "hourHidden">
+    <div class="hour-display" *ngFor="let hour of hourly_data">
+      <h5>{{hour.name}}</h5>
       <img src={{hour.img_url}} alt="img" class="time-img">
       <div>
         <h5>
@@ -44,18 +25,18 @@
     </div>
   </div>
 
-  <div class="bloc" *ngIf="dayDisplay == true">
-    <div class="hour-display" *ngFor="let day of daily-display">
-      <h3>{{day.name}}</h3>
+  <div class="bloc" [hidden] = "dayHidden">
+    <div class="hour-display" *ngFor="let day of weekly_data">
+      <h4>{{day.name}}</h4>
       <img src={{day.img_url}} alt="img" class="time-img">
       <div>
-        <h5>
+        <h6>
           <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
-          {{day.temperature}}
-        </h5>
+          {{day.temperature[0]}} - {{day.temperature[1]}} (°C)
+        </h6>
         <h6>
           <i class="fa fa-tint" aria-hidden="true"></i>
-          {{day.humidity}}
+          {{day.humidity[0]}} - {{day.humidity[1]}} (g/m³)
         </h6>
         <h6>
           <i class="fa fa-fire" aria-hidden="true"></i>

@@ -15,8 +15,8 @@ export class WeatherComponent implements OnInit {
 
    donnee = new weather_data();
 
-    public latitude :number = 35;
-    public longitude : number = 100;
+    public latitude :number = 3.5;
+    public longitude : number = 11.5;
     public units : string ='metric';
     public  API_KEY:string ="33d32c6a2760f1561d57c0f8229f0a6a";
     public URL: string ="http://api.openweathermap.org/data/2.5/";
@@ -185,9 +185,8 @@ export class WeatherComponent implements OnInit {
     
 
   ngOnInit() {
-    //this.getData("weather");
+    this.getData("weather");
     //this.getData("forecast");
-   
   }
 
 }
