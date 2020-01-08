@@ -3,5 +3,5 @@ export class current_data{
     public img_url: string;
     public temperature: number[] = [];
     public humidity: number[] = [];
-    public rainfall: number[] = [];
+    public wind_speed: number[] = [];
 }

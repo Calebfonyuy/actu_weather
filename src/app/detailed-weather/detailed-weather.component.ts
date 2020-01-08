@@ -41,6 +41,7 @@ export class DetailedWeatherComponent implements OnInit {
   public forecast_data : weather_data[] = []; 
   public hourly_data : current_data[]=[];
   public weekly_data : current_data[]= [];
+  public day_data =new Array();
   
   param_weather = new HttpParams()
   .set('lat',this.latitude.toString())
@@ -117,7 +118,7 @@ export class DetailedWeatherComponent implements OnInit {
  
          hourly_data_temp.humidity.push(forecast_data[i].humidity);
  
-         //current_data_temp.rainfall=this.forecast_data[i].;
+         hourly_data_temp.wind_speed.push(forecast_data[i].wind_speed);
          
          this.hourly_data.push(hourly_data_temp);
 
@@ -127,6 +128,7 @@ export class DetailedWeatherComponent implements OnInit {
      let val: number = 0;
 
      for (var i=1; i < forecast_data.length; i++ ){
+       
        if(this.get_namedate(forecast_data[i-1].dt) == this.get_namedate(forecast_data[i].dt)){
          val++;
        }
@@ -140,11 +142,14 @@ export class DetailedWeatherComponent implements OnInit {
      let t: number = 0;
 
      for(var i=0; i<day.length; i++){
+       let hourly_day_data: current_data[]=[] ;
        let weekly_data_temp = new current_data();
        let temp_min: number= forecast_data[i].temperature;
        let temp_max: number= forecast_data[i].temperature;
        let humidity_min: number = forecast_data[i].humidity;
        let humidity_max: number= forecast_data[i].humidity;
+       let wind_speed_min: number = forecast_data[i].wind_speed;
+       let wind_speed_max: number= forecast_data[i].wind_speed;
        let id_icon_temp: string;
 
 
@@ -154,21 +159,38 @@ export class DetailedWeatherComponent implements OnInit {
        weekly_data_temp.name = this.get_namedate(forecast_data[t].dt);
         console.log('i = ',i, 'day de i = ',day[i])
        for(var j= t; j<t+day[i];j++){
+
+         let hourly_day_data_temp = new current_data();
+         hourly_day_data_temp.name=this.get_heure(forecast_data[j].dt);
+         hourly_day_data_temp.humidity= forecast_data.humidity;
+         hourly_day_data_temp.temperature= forecast_data[j].temperature;
+         hourly_day_data_temp.wind_speed = forecast_data[j].wind_speed;
+         hourly_day_data_temp.img_url = this.get_image_icon(forecast_data[j].id_icon);
+
          console.log('forcast data de j ',j,': ',day[i],forecast_data[j])
          if(forecast_data[j].temperature >temp_max){
            temp_max=forecast_data[j].temperature;
            id_icon_temp=forecast_data[j].id_icon;
          }
          if(forecast_data[j].temperature <temp_min){
-           temp_max=forecast_data[j].temperature;
+           temp_min=forecast_data[j].temperature;
          }
          if(forecast_data[j].humidity >humidity_max){
            humidity_max=forecast_data[j].humidity;
          }
          if(forecast_data[j].humidity <humidity_min){
-           humidity_max=forecast_data[j].humidity;
+           humidity_min=forecast_data[j].humidity;
          }
+         if(forecast_data[j].wind_speed >wind_speed_max){
+          wind_speed_max=forecast_data[j].wind_speed;
+        }
+        if(forecast_data[j].wind_speed <wind_speed_min){
+          wind_speed_min=forecast_data[j].wind_speed
+        }
          a++;
+         hourly_day_data.push(hourly_day_data_temp);
+
+
        }
        t=t+a;
 
@@ -178,6 +200,7 @@ export class DetailedWeatherComponent implements OnInit {
        weekly_data_temp.temperature.push(temp_max);
        weekly_data_temp.img_url= this.get_image_icon(id_icon_temp);
        this.weekly_data.push(weekly_data_temp);
+       this.day_data.push(hourly_day_data);
      }
      this.weekly_data.shift()
 
