@@ -17,9 +17,8 @@ export class WeatherComponent implements OnInit {
     public longitude : number = 100;
     public units : string ='metric';
     public forecast_data : weather_data[] = []; 
-    public date: string;
     public  API_KEY:string ="33d32c6a2760f1561d57c0f8229f0a6a";
-    public URL: string ="http://api.openweathermap.org/data/2.5/"
+    public URL: string ="http://api.openweathermap.org/data/2.5/";
     param_weather = new HttpParams()
           .set('lat',this.latitude.toString())
           .set('lon', this.longitude.toString())
@@ -88,13 +87,14 @@ export class WeatherComponent implements OnInit {
       return dt_txt.split(" ")[1];
 
     }
+    get_image_icon(id_icon){
+      return "http://openweathermap.org/img/wn/"+id_icon+"@2x.png"
+    }
 
   ngOnInit() {
     //this.getData("weather");
     //this.getData("forecast");
-    let dt_txt= "2020-01-06 21:00:00";
-    
-    this.date = this.get_namedate(dt_txt);
+   
   }
 
 }
