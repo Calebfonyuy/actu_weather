@@ -54,7 +54,7 @@ export class WeatherComponent implements OnInit {
       this.donnee.wind_speed=res.wind.speed;
       this.donnee.id_icon = res.weather[0].icon;
       
-    }else if(request_type="forecast"){
+    }else if(request_type=="forecast"){
       console.log(res);
 
       for (var i=0; i < res.cnt; i++ )
@@ -151,7 +151,7 @@ export class WeatherComponent implements OnInit {
         let humidity_min: number = this.forecast_data[i].humidity;
         let humidity_max: number= this.forecast_data[i].humidity;
         let id_icon_temp: string;
-        
+
         weekly_data_temp.name= this.get_namedate(this.forecast_data[i].dt);
 
         for(var j= t; j<t+day[i];j++){
