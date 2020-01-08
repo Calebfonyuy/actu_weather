@@ -14,6 +14,8 @@ export class DetailedWeatherComponent implements OnInit {
   hourHidden: boolean = false
   dayHidden: boolean = true
   detailsHidden: boolean = true
+  detailsName: String
+
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +24,7 @@ export class DetailedWeatherComponent implements OnInit {
     console.log(this.hourly_data.length)
     this.dayHidden = true
     this.hourHidden = false
+    this.detailsHidden = true
   }
 
   onDayDisplay() {
@@ -29,6 +32,25 @@ export class DetailedWeatherComponent implements OnInit {
     console.log(this.weekly_data.length)
     this.hourHidden = true
     this.dayHidden = false
+    this.detailsHidden = true
+  }
+
+  dayIndex(day){
+    let i
+    for (let index = 0; index < this.weekly_data.length; index++) {
+      if(day.name == this.weekly_data[index].name){
+        i = index
+      }
+    }
+    return i
+  }
+
+  onDayData(day) {
+    console.log('clicked on weekly day')
+    console.log(day)
+    this.day_details = this.day_data[this.dayIndex(day)]
+    this.detailsHidden = false;
+    this.detailsName = day.name
   }
 
 
@@ -42,6 +64,7 @@ export class DetailedWeatherComponent implements OnInit {
   public hourly_data : current_data[]=[];
   public weekly_data : current_data[]= [];
   public day_data =new Array();
+  public day_details = []
   
   param_weather = new HttpParams()
   .set('lat',this.latitude.toString())
@@ -203,7 +226,7 @@ export class DetailedWeatherComponent implements OnInit {
        this.day_data.push(hourly_day_data);
      }
      this.weekly_data.shift()
-
+     this.day_data.shift()
   }
 
   ngOnInit() {
