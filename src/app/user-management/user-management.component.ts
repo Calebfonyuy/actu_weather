@@ -5,6 +5,7 @@ import { AppComponent } from '../app.component';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IndexedDBComponent } from '../indexed-db/indexed-db.component';
 import { dbConfig } from '../configuration/db-config';
+import { GeolocationService } from '../services/geolocation.service';
 
 @Component({
   selector: 'app-user-management',
@@ -20,7 +21,7 @@ export class UserManagementComponent implements OnInit {
 	private up_message:string = '';
 
 	private user:User = new User();
-	private app:AppComponent = new AppComponent();
+	private app:AppComponent = new AppComponent(new GeolocationService());
 	@Input()
 	private signup:boolean;
 	@Output()
