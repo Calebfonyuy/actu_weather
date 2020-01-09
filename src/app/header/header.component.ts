@@ -11,7 +11,9 @@ export class HeaderComponent implements OnInit {
 	private signup:boolean = false;
 	private user:User;
 	@Output()
-	private address_emitter = new EventEmitter<any>();
+	private status_emitter = new EventEmitter<any>();
+	private logo:any="app/img/logo.png";
+	private type:number = -1;
 
   constructor() { }
 
@@ -20,6 +22,11 @@ export class HeaderComponent implements OnInit {
 
 	// Switch Header Status according to received action values
 	public switchAction(type){
+		if(this.action&&type==this.type){
+			this.action = false;
+			return;
+		}
+		this.type = type;
 		this.signup = false;
 		this.action = !this.action;
 		switch(type){
@@ -40,9 +47,11 @@ export class HeaderComponent implements OnInit {
 	public updateUser(nuser:User){
 		this.user = nuser;
 		this.action = false;
+		this.status_emitter.emit();
 	}
 
 	public logoutUser(){
 		this.user = null;
+		this.status_emitter.emit();
 	}
 }

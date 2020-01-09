@@ -1,15 +1,15 @@
 <div class="container-fluid">
 	<div class="col-12 mb-5">
-		<app-header></app-header>
+		<app-header (status_emitter)="updateAppStatus($event)"></app-header>
 	</div>
-	<div class="col-12" id="weather-area">
-		<div class="col-12 m-1 text-center font-weight-bold h4">
-			Weather Updates for {{ address }}
+	<section *ngIf="loggedIn">
+		<app-weather></app-weather>
+	</section>
+	<section *ngIf="!loggedIn">
+		<div id="home-cover">
+			This is crazy content
 		</div>
-		<div class="col-12 mt-1" id="map-area">
-		</div>
-	</div>
+	</section>
 </div>
 <app-footer></app-footer>
-<app-weather></app-weather>
 <router-outlet></router-outlet>

@@ -82,7 +82,7 @@ getAlluser(){
 				var found_user = null;
 				for(var i in users){
 					var user = users[i];
-					if(user['username'] == manager.username){
+					if(user['username'] == manager.username.trim()){
 						found_user = user;
 						break;
 					}

@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular
 import * as L from 'leaflet'
 import { icon, Marker } from 'leaflet'
 import { all } from 'q';
+import { HttpParams, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-osmap',
@@ -15,7 +16,7 @@ export class OsmapComponent implements OnInit, AfterViewInit {
   @Output()
   private emit_position:EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(private httpClient:HttpClient) { }
 
   ngOnInit() {
     this.initMap()
@@ -57,4 +58,11 @@ export class OsmapComponent implements OnInit, AfterViewInit {
 	  this.emit_position.emit(position);
     })
   }
+
+  	private searchPositionName(position){
+		//var request = new HttpParams({fromString: 'name=term'});
+		this.httpClient.get('http://nominatim.openstreetmap.org/reverse?lat=5.569516191569202&lon=10.39283872644627&format=json&json_callback=my_callback&extratags=1').subscribe((req)=>{
+			console.log(req);
+		});
+	}
 }

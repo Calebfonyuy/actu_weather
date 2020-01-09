@@ -1,4 +1,7 @@
 <ul class="nav">
+	<li class="nav-item mr-2">
+		<img src="{{ user.photo }}" alt="PHOTO" class="picture picture-small">
+	</li>
 	<li class="nav-item">
 		<span class="font-weight-bold text-uppercase">{{ user.name }}</span>
 	</li>
@@ -11,18 +14,20 @@
 	</li>
 </ul>
 
-<div class="col-5 ml-auto bg-light" id="main-div" *ngIf="showmenu">
+<div class="col-lg-5 col-md-5 ml-auto" id="main-div" *ngIf="showmenu">
 	<div class="container-fluid p-3">
 		<div class="row">
-			<div class="col-2">
+			<div class="col-lg-3 col-md-3">
 				<div class="m-1">
-					<img src="" alt="IMAGE">
-				</div>
-				<div class="m-1">
-					<span class="btn-link">Change</span>
+					<img src="{{ user.photo }}" alt="IMAGE" class="picture picture-big"
+					 onclick="document.getElementById('profile_pic').click()">
+ 					<form (submit)="changePhoto()">
+ 						<input type="file" name="profile_pic" id="profile_pic" hidden="hidden"
+ 						accept="image/*" (change)="changePhoto($event)">
+ 					</form>
 				</div>
 			</div>
-			<div class="col-9 ml-auto">
+			<div class="col-lg-9 col-md-9 ml-auto">
 				<div class="font-weight-bold text-uppercase">
 					{{ user.name }} {{ user.surname }}
 				</div>
@@ -35,42 +40,59 @@
 				<div class="" *ngIf="user.active_address">
 					Currently at <span class="font-weight-bold">{{ user.active_address.getTown() }}</span>
 				</div>
-			</div>
-			<div class="col-12">
-				<button class="m-1 btn btn-info" (click)='switchMode()'>Modify Info</button>
+				<div class="text-left mt-1">
+					<span class="m-1 btn-link" (click)='switchMode()'>
+						<span class="fa fa-edit"></span>
+						Modify profile
+					</span>
+				</div>
 			</div>
 			<div class="col-12 mt-4" *ngIf='!editing'>
-				<div class="col-12 row border border-default">
-					<div class="col-8">
-						<legend>Address</legend>
+				<div class="col-12 row">
+					<div class="col-8 h3">
+						Saved Addresses
 					</div>
 					<div class="col-4 text-right">
-						<span class="btn fa fa-plus" (click)='toggleAddAddr()'></span>
+						<span class="btn border border-dark"  (click)='toggleAddAddr()'>
+							<span class="fa fa-plus"></span>
+						</span>
 					</div>
 				</div>
 
 				<ul *ngFor="let address of user.address; index as i">
-					<li *ngIf='address == user.active_address' class="font-weight-bold">
-						{{ address.getTown() }} <span class="fa fa-check"></span>
+					<li *ngIf='address == user.active_address' class="font-weight-bold row">
+						<div class="col-8">
+							{{ address.getTown() }} <span class="fa fa-check"></span>
+						</div>
+						<div class="col-4 text-center">
+							<span class="fa fa-cross"></span>
+						</div>
 					</li>
-					<li *ngIf='address != user.active_address' class="btn-link" (click)="changAddress(i)">{{ address.getTown() }}</li>
+					<li *ngIf='address != user.active_address' class="row">
+						<div class="btn-link text-dark col-8" (click)="changAddress(i)">
+							{{ address.getTown() }}
+						</div>
+						<div class="btn-link col-4 text-center" (click)="deleteAddress(i)">
+							<span class="text-danger fa fa-times"></span>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="row" *ngIf='editing'>
-			<form class="form col-12 p-0 m-0" action="#" method="get" (submit)="updateUser()">
+		<div class="container m-1 row" *ngIf='editing'>
+			<form class="form col-12 p-0 m-0" action="#" method="get" (submit)="updateUser()" id="edit-form">
 				<div class="text-center font-weight-bold mt-2 mb-1">
 					Update Account Information
 				</div>
-				<div class="input-group">
+				<div class="input-group mt-1">
 					<label class="col-12" for="name">Name</label>
 					<input type="text" [(ngModel)]="name" name="name" id="name" class="form-control" autocomplete="off">
 				</div>
-				<div class="input-group">
+				<div class="input-group mt-1">
 					<label class="col-12" for="surname">Surname</label>
 					<input type="text" [(ngModel)]="surname" name="surname" id="surname" class="form-control" autocomplete="off">
 				</div>
-				<div class="input-group">
+				<div class="input-group mt-1">
 					<label class="col-12" for="birthday">Birthday</label>
 					<input type="date" [(ngModel)]="birthday" name="birthday" id="birthday" class="form-control">
 				</div>
@@ -95,24 +117,26 @@
 						</div>
 					</div>
 				</div>
-				<div class="input-group">
+				<div class="input-group mt-1">
 					<label class="col-12" for="username">Username</label>
 					<input type="text" [(ngModel)]="username" name="username" id="username" class="form-control" autocomplete="off">
 				</div>
-				<div class="input-group">
+				<div class="input-group mt-1">
 					<label class="col-12" for="password">Password</label>
-					<input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" autocomplete="off">
+					<input type="password" [(ngModel)]="password" name="password" id="password" class="form-control"
+					autocomplete="off">
 				</div>
-				<div class="input-group">
+				<div class="input-group mt-1">
 					<label class="col-12" for="password">Confirm Password</label>
-					<input type="password" [(ngModel)]="password2" name="password2" id="password2" class="form-control" autocomplete="off">
+					<input type="password" [(ngModel)]="password2" name="password2" id="password2" class="form-control"
+					autocomplete="off" appPasswordCheck [source_element_id]="'password'">
 				</div>
 				<div class="input-group mt-3 row">
-					<div class="col-5 m-auto">
-						<button type="reset" name="reset" class="btn btn-danger">Cancel</button>
+					<div class="col-6">
+						<button type="reset" name="reset" class="btn btn-danger w-100" (click)='switchMode()'>Cancel</button>
 					</div>
 					<div class="col-6">
-						<button type="submit" name="submit" class="btn btn-success">Update</button>
+						<button type="submit" name="submit" class="btn btn-success w-100">Update</button>
 					</div>
 				</div>
 			</form>
@@ -120,16 +144,16 @@
 	</div>
 </div>
 
-<div class="container-fluid border">
-	<form *ngIf='add_addr' class="form p-3 bg-light border border-success text-left"
+<div class="container-fluid border text-center" id="address-area">
+	<form *ngIf='add_addr' class="form p-3 border text-left"
 			action="#" method="get" id="address-form">
-		<legend>New Address</legend>
-		<div class="input-group row">
-			<div class="col-3">
-				<label for="naddr">Town</label>
-			</div>
-			<div class="col-9 m-auto">
-				<input type="text" [(ngModel)]="new_address.town" name="newTown" placeholder="Name of Town">
+		<div class="text-center h2">
+			<span>New Address</span>
+		</div>
+		<div class="m-auto input-group row">
+			<div class="col-12 mb-2">
+				<input type="text" [(ngModel)]="new_address.town" name="newTown" placeholder="Name of Town"
+				class="form-control" autocomplete="off">
 			</div>
 			<div class="col-12 m-auto">
 				<app-osmap (emit_position)="addAddress($event)"></app-osmap>
