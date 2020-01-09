@@ -74,7 +74,7 @@
 		</div>
 		<div class="col-lg-6 col-md-6 m-auto input-group">
 			<label class="col-12 mt-3" for="password3">Password <span id="grayed">(Confirmation)</span></label>
-			<input type="password" [(ngModel)]="password" name="password" id="password3" class="form-control" autocomplete="off">
+			<input type="password" [(ngModel)]="password" #password2 name="password" id="password3" class="form-control" autocomplete="off" appPasswordCheck [source_element_id]="'password2'">
 		</div>
 		<div class="input-group col-11 mr-auto ml-auto mt-3 row">
 			<div class="col-5 mr-auto">
