@@ -23,6 +23,8 @@ export class UserComponent implements OnInit {
 	private user:User;
 	@Output()
 	private logout_event = new EventEmitter<any>();
+	@Output()
+	private emit_address:EventEmitter<Address> = new EventEmitter<Address>();
 
 	constructor() { }
 
@@ -60,6 +62,8 @@ export class UserComponent implements OnInit {
 		if(this.new_address.getTown()){
 			this.user.addNewAddress(this.new_address);
 			this.user.save(null);
+			this.user.setActiveAddress(this.user.getAllAddresses().length-1);
+			this.updateWeatherAddress();
 			this.new_address = new Address(null, null, null);
 			this.toggleAddAddr();
 		}else{
@@ -81,6 +85,7 @@ export class UserComponent implements OnInit {
 	//Switch Active user address
 	private changAddress(index){
 		this.user.setActiveAddress(index);
+		this.updateWeatherAddress();
 	}
 
 	private deleteAddress(index){
@@ -110,6 +115,10 @@ export class UserComponent implements OnInit {
 			this.user.setPhoto(file_data);
 			this.user.save(null);
 		}
+	}
+
+	public updateWeatherAddress(){
+		this.emit_address.emit(this.user.getActiveAddress());
 	}
 }
 

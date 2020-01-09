@@ -1,6 +1,7 @@
 .main-detail{
   background-color: rgba(0, 0, 0, 0.4);
   padding: 5px 15px 0 15px;
+  margin: 0 15px;
 }
 
 .nav{
@@ -23,6 +24,11 @@
   justify-content: center;
 }
 
+.nav p:hover{
+  cursor: pointer;
+  background-color: rgb(175, 123, 123);
+}
+
 .nav p:nth-child(1){
   border-right: 1px solid black;
 }
@@ -37,14 +43,45 @@
   width: 158px;
   height: 210px;
   margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.25);
+  padding-top: 10px;
+  background-color: rgba(255, 255, 255, 0.15);
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  border-radius: 10%
 }
 
+.hour-display h3{
+  margin: 0;
+}
 
+.hour-display img{
+  height: 80px;
+  width: 80px;
+}
 
+.hour-display div{
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 15px;
+}
 
+.days div{
+  padding: 0;
+}
+
+.some-padding{
+  margin-left: 15px;
+}
+.days:hover{
+  background-color: rgba(175, 123, 123, 0.35);
+  cursor: pointer;
+}
+
+.blocPlus{
+  margin-top: 20px;
+  transition: hidden 5s;
+}

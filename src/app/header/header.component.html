@@ -1,18 +1,20 @@
 <div class="navbar shadow fixed-top" id="header">
-	<img src="assets/logo.png" height="60">
+	<span class="d-none d-md-block d-lg-block">
+		<img src="assets/logo.png" height="60">
+	</span>
 	<div *ngIf="user" class="nav navbar navbar-nav">
-		<app-user  [user] = "user" (logout_event) = 'logoutUser($event)'></app-user>
+		<app-user  [user] = "user" (logout_event) = 'logoutUser($event)' (emit_address)='updateWeatherAddress($event)'></app-user>
 	</div>
 	<div *ngIf="user==null" class="nav navbar navbar-nav">
 		<ul class="nav">
-			<li class="btn-link nav-item" (click)='switchAction(1)'>
+			<li class="btn-link nav-item text-light" (click)='switchAction(1)'>
 				<span class="font-weight-bold">Login</span>
 			</li>
-			<li class="btn-link nav-item ml-3" (click)='switchAction(2)'>
+			<li class="btn-link nav-item ml-3 text-light" (click)='switchAction(2)'>
 				<span class="font-weight-bold">Sign Up</span>
 			</li>
 		</ul>
 		<app-user-management *ngIf="action" [signup] = 'signup' (cancel_action)='switchAction($event)'
-			(emit_user)='updateUser($event)'></app-user-management>
+			(emit_user)='updateUser($event)' (emit_address)='updateWeatherAddress($event)'></app-user-management>
 	</div>
 </div>

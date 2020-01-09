@@ -9,14 +9,13 @@ export class GeolocationService {
 
   }
 
-  public async getPosition(){
-	  var position = {lat:0, long: 0};
+  public async getPosition(position){
 	  if(navigator.geolocation){
-		  await navigator.geolocation.getCurrentPosition((data)=>{
-			  position.lat = data.coords.latitude;
-			  position.long = data.coords.longitude;
+		  return navigator.geolocation.getCurrentPosition((data)=>{
+			  position.latitude = data.coords.latitude;
+			  position.longitude = data.coords.longitude;
+			  console.log(data);
 		  });
 	  }
-	  return position;
   }
 }

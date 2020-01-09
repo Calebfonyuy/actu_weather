@@ -5,7 +5,7 @@
 	<li class="nav-item">
 		<span class="font-weight-bold text-uppercase">{{ user.name }}</span>
 	</li>
-	<li class="nav-item ml-3 btn-link" (click)='logout()'>
+	<li class="nav-item ml-3 btn-link text-light" (click)='logout()'>
 		Logout
 	</li>
 	<li class="nav-item ml-3" (click)='toggleMenu()'>
@@ -41,7 +41,7 @@
 					Currently at <span class="font-weight-bold">{{ user.active_address.getTown() }}</span>
 				</div>
 				<div class="text-left mt-1">
-					<span class="m-1 btn-link" (click)='switchMode()'>
+					<span class="m-1 btn-link text-light" (click)='switchMode()'>
 						<span class="fa fa-edit"></span>
 						Modify profile
 					</span>
@@ -144,8 +144,8 @@
 	</div>
 </div>
 
-<div class="container-fluid border text-center" id="address-area">
-	<form *ngIf='add_addr' class="form p-3 border text-left"
+<div *ngIf='add_addr' class="container-fluid border text-center" id="address-area">
+	<form class="form p-3 border text-left"
 			action="#" method="get" id="address-form">
 		<div class="text-center h2">
 			<span>New Address</span>

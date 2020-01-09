@@ -1,50 +1,77 @@
 <div class="main-detail">
   <nav class="nav">
-    <p>Toutes les heures</p>
-    <p>Hebdomadaire</p>
+    <p (click)="onHourDisplay()">Hourly forecast</p>
+    <p (click)="onDayDisplay()">Weekly forecast</p>
   </nav>
-  <div class="bloc">
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
+  
+  <div class="bloc" [hidden] = "hourHidden">
+    <div class="hour-display" *ngFor="let hour of hourly_data">
+      <h5>{{hour.name}}</h5>
+      <img src={{hour.img_url}} alt="img" class="time-img">
+      <div>
+        <h5>
+          <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+          {{hour.temperature}} °C
+        </h5>
+        <h6>
+          <i class="fa fa-tint" aria-hidden="true"></i>
+          {{hour.humidity}} %
+        </h6>
+        <h6>
+          <i class="fa fa-flag" aria-hidden="true"></i>
+          {{hour.wind_speed}} m/s
+        </h6>
+      </div>
     </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div>
-    <div class="hour-display">
-      <h3>{{time}}</h3>
-      <img src="" alt="img" class="time-img">
-      <h4>{{Temperature}}</h4>
-      <h6>{{Humidite}}</h6>
-      <h6>{{Pluviometrie}}</h6>
-    </div> 
   </div>
+
+  <div class="bloc" [hidden] = "dayHidden">
+    <div class="hour-display days" *ngFor="let day of weekly_data">
+      <div class="some-padding" (click) = "onDayData(day)">
+        <h4>{{day.name}}</h4>
+        <img src={{day.img_url}} alt="img" class="time-img">
+        <div class="no-padding">
+          <h6>
+            <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+            {{day.temperature[0]}} - {{day.temperature[1]}} (°C)
+          </h6>
+          <h6>
+            <i class="fa fa-tint" aria-hidden="true"></i>
+            {{day.humidity[0]}} - {{day.humidity[1]}} (%)
+          </h6>
+          <h6>
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            {{day.windspeed}} (m/s)
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--hourly display for weekly data forecast-->
+  
+  <div [hidden] = "detailsHidden" class="blocPlus">
+    <h4>Hourly forecast for {{detailsName}}</h4>
+    <div class="bloc">
+      <div class="hour-display" *ngFor="let hour of day_details">
+        <h5>{{hour.name}}</h5>
+        <img src={{hour.img_url}} alt="img" class="time-img">
+        <div>
+          <h5>
+            <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+            {{hour.temperature}} °C
+          </h5>
+          <h6>
+            <i class="fa fa-tint" aria-hidden="true"></i>
+            {{hour.humidity}} %
+          </h6>
+          <h6>
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            {{hour.wind_speed}} m/s
+          </h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>

@@ -63,6 +63,7 @@ export class User {
 	public getId(){return this.id;}
 	public getAllAddresses(){return this.address;}
 	public getPassword(){return this.password;}
+	public getActiveAddress(){return this.active_address;}
 
 	public setActiveAddress(index){
 		this.active_address = this.address[index];
@@ -77,6 +78,7 @@ export class User {
     }
 
 	public addNewAddress(address:Address){
+		console.log(address);
 		this.address.push(address);
 	}
 

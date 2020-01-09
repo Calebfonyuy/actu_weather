@@ -6,6 +6,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { IndexedDBComponent } from '../indexed-db/indexed-db.component';
 import { dbConfig } from '../configuration/db-config';
 import { GeolocationService } from '../services/geolocation.service';
+import { Address } from '../user/address';
 
 @Component({
   selector: 'app-user-management',
@@ -21,13 +22,15 @@ export class UserManagementComponent implements OnInit {
 	private up_message:string = '';
 
 	private user:User = new User();
-	private app:AppComponent = new AppComponent(new GeolocationService());
+	private app:AppComponent = new AppComponent(new GeolocationService(), null);
 	@Input()
 	private signup:boolean;
 	@Output()
 	private cancel_action = new EventEmitter<Number>();
 	@Output()
 	private emit_user:EventEmitter<User> = new EventEmitter<User>();
+	@Output()
+	private emit_address:EventEmitter<Address> = new EventEmitter<Address>();
 
 
 	constructor() { }
@@ -84,12 +87,20 @@ export class UserManagementComponent implements OnInit {
 			found_user.setPassword(user.password);
 			found_user.setBirthday(new Date(user.birthday));
 			for(var i in user.address){
-				found_user.addAddress(user.address[i].town, user.address[i].lattitude, user.address[i].longitude);
+				found_user.addAddress(user.address[i].town, user.address[i].latitude, user.address[i].longitude);
 			}
 			this.user = found_user;
+			if(this.user.getAllAddresses().length>0){
+				this.user.setActiveAddress(0);
+				this.updateWeatherAddress();
+			}
 			this.emit_user.emit(found_user);
 		}else{
 			this.in_message = "Wrong Password";
 		}
+	}
+
+	public updateWeatherAddress(){
+		this.emit_address.emit(this.user.getActiveAddress());
 	}
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { weather_data } from './weather_data';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { current_data } from './current_data';
 
 
 
@@ -10,28 +11,49 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
-export class WeatherComponent implements OnInit {
-
-   donnee = new weather_data();
-    public latitude :number = 35;
-    public longitude : number = 100;
+export class WeatherComponent implements OnInit , OnChanges{
+	@Input()
+    public latitude:number;
+	@Input()
+    public longitude : number;
     public units : string ='metric';
-    public forecast_data : weather_data[] = []; 
-    public  API_KEY:string ="33d32c6a2760f1561d57c0f8229f0a6a";
+    public  API_KEY:string ="fd72a2992d88918120ba4c7b6ab8c481";
     public URL: string ="http://api.openweathermap.org/data/2.5/";
-    param_weather = new HttpParams()
-          .set('lat',this.latitude.toString())
-          .set('lon', this.longitude.toString())
-          .set('APPID',this.API_KEY)
-          .set('units',this.units );
+	private param_weather:HttpParams;
+	donnee = new weather_data();
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
+  }
+  ngOnInit() {
+	  this.initializeParams();
+	this.getData("weather");
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+	  this.initializeParams();
+	  this.getData('weather');
+  }
+
+  public initializeParams(){
+	  this.param_weather = new HttpParams()
+            .set('lat',this.latitude.toString())
+            .set('lon', this.longitude.toString())
+            .set('APPID',this.API_KEY)
+            .set('units',this.units );
+  }
+
+  public updateWeather(lat:number, long:number){
+	  console.log(lat, long);
+	  // this.latitude = lat;
+	  // this.longitude = long;
+	  // this.initializeParams();
+	  // this.getData('weather');
   }
 
   getData(request_type){
      let req  = this.URL+request_type;
-    
+
     this.http.get(req ,{responseType:'json', params: this.param_weather}).subscribe((res:any) => {
       if (request_type == "weather")
     {
@@ -47,40 +69,14 @@ export class WeatherComponent implements OnInit {
       this.donnee.wind_degree= res.wind.degree;
       this.donnee.wind_speed=res.wind.speed;
       this.donnee.id_icon = res.weather[0].icon;
-      
-    }else if(request_type="forecast"){
-      console.log(res);
-
-      for (var i=0; i < res.cnt; i++ )
-      {
-        let fore_data_temp = new weather_data();
-        fore_data_temp.city_name=res.city.name;
-        fore_data_temp.latitude=res.city.coord.lat;
-        fore_data_temp.longitude= res.city.coord.lon;
-  
-        fore_data_temp.country_cod=res.city.country;
-
-        fore_data_temp.humidity=res.list[i].main.humidity;
-        fore_data_temp.pressure= res.list[i].main.pressure;
-        fore_data_temp.temperature = res.list[i].main.temp;
-        fore_data_temp.weather_description = res.list[i].weather[0].description;
-        fore_data_temp.weather_main=res.list[i].weather[0].main;
-        fore_data_temp.wind_degree= res.list[i].wind.degree;
-        fore_data_temp.wind_speed=res.list[i].wind.speed;
-        fore_data_temp.id_icon = res.list[i].weather[0].icon;
-        fore_data_temp.dt = res.list[i].dt_txt;
-
-        this.forecast_data.push(fore_data_temp);
-      }
-
     }
-     
+
   });
-  
+
 }
     get_namedate(dt_txt){
       let date=  new Date(dt_txt.split(" ")[0]);
-      let tab_jour=new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+      let tab_jour=new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
       return tab_jour[date.getDay()];
     }
     get_heure(dt_txt){
@@ -91,10 +87,10 @@ export class WeatherComponent implements OnInit {
       return "http://openweathermap.org/img/wn/"+id_icon+"@2x.png"
     }
 
-  ngOnInit() {
-    //this.getData("weather");
-    //this.getData("forecast");
-   
-  }
+    updater(){
+      setInterval(function(){
+        this.getData("weather");
+      },600000);
+    }
 
 }
