@@ -13,8 +13,9 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 
 export class OsmapComponent implements OnInit, AfterViewInit {
   private map;
+  private town_name:string;
   @Output()
-  private emit_position:EventEmitter<any> = new EventEmitter<any>();
+  private emit_position:EventEmitter<any[]> = new EventEmitter<any[]>();
 
   constructor(private httpClient:HttpClient) { }
 
@@ -51,9 +52,8 @@ export class OsmapComponent implements OnInit, AfterViewInit {
 
     this.map.on('click', (e) => {
       position = e.latlng;
-	  console.log(position);
       marker.setLatLng(position)
-	  this.emit_position.emit(position);
+	  this.emit_position.emit([position,this.town_name]);
     })
   }
 

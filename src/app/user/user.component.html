@@ -1,14 +1,15 @@
 <ul class="nav">
 	<li class="nav-item mr-2">
-		<img src="{{ user.photo }}" alt="PHOTO" class="picture picture-small">
+		<img src="{{ user.photo }}" *ngIf="user.photo" alt="PHOTO" class="picture picture-small">
+		<img src="assets/avatar.png" *ngIf="!user.photo" alt="PHOTO" class="picture picture-small">
 	</li>
-	<li class="nav-item">
-		<span class="font-weight-bold text-uppercase">{{ user.name }}</span>
+	<li class="nav-item m-auto">
+		<span class="font-weight-bold text-uppercase h5">{{ user.name }}</span>
 	</li>
-	<li class="nav-item ml-3 btn-link text-light" (click)='logout()'>
+	<li class="nav-item ml-3 btn-link text-light mt-auto mb-auto" (click)='logout()'>
 		Logout
 	</li>
-	<li class="nav-item ml-3" (click)='toggleMenu()'>
+	<li class="nav-item ml-3 mt-auto mb-auto" (click)='toggleMenu()'>
 		<span class="shadow h1 fa fa-align-justify" *ngIf="!showmenu"></span>
 		<span class="shadow h1 fa fa-server" *ngIf="showmenu"></span>
 	</li>
@@ -19,8 +20,10 @@
 		<div class="row">
 			<div class="col-lg-3 col-md-3">
 				<div class="m-1">
-					<img src="{{ user.photo }}" alt="IMAGE" class="picture picture-big"
+					<img src="{{ user.photo }}" *ngIf="user.photo" alt="IMAGE" class="picture picture-big"
 					 onclick="document.getElementById('profile_pic').click()">
+ 					<img src="assets/avatar.png" *ngIf="!user.photo" alt="IMAGE" class="picture picture-big"
+ 					 onclick="document.getElementById('profile_pic').click()">
  					<form (submit)="changePhoto()">
  						<input type="file" name="profile_pic" id="profile_pic" hidden="hidden"
  						accept="image/*" (change)="changePhoto($event)">
@@ -147,14 +150,13 @@
 <div *ngIf='add_addr' class="container-fluid border text-center" id="address-area">
 	<form class="form p-3 border text-left"
 			action="#" method="get" id="address-form">
-		<div class="text-center h2">
-			<span>New Address</span>
+		<div class="text-center">
+			<span class="h2">New Address</span>
+			<div class="text-danger">
+				{{ map_message }}
+			</div>
 		</div>
 		<div class="m-auto input-group row">
-			<div class="col-12 mb-2">
-				<input type="text" [(ngModel)]="new_address.town" name="newTown" placeholder="Name of Town"
-				class="form-control" autocomplete="off">
-			</div>
 			<div class="col-12 m-auto">
 				<app-osmap (emit_position)="addAddress($event)"></app-osmap>
 			</div>

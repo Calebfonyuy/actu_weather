@@ -16,18 +16,19 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
 	public units : string ='metric';
 	public  API_KEY:string ="33d32c6a2760f1561d57c0f8229f0a6a";
 	public URL: string ="http://api.openweathermap.org/data/2.5/";
+	private show_weather:boolean = false;
 
 	public forecast_data : weather_data[] = [];
 	public hourly_data : current_data[]=[];
 	public weekly_data : current_data[]= [];
 	public day_data =new Array();
-	public day_details = []
+	public day_details = [];
 	private param_weather:HttpParams;
 
-  hourHidden: boolean = false
-  dayHidden: boolean = true
-  detailsHidden: boolean = true
-  detailsName: String
+  hourHidden: boolean = false;
+  dayHidden: boolean = true;
+  detailsHidden: boolean = true;
+  detailsName: String;
 
 
   constructor(private http: HttpClient) { }
@@ -63,6 +64,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
 
   getData(request_type){
     let req  = this.URL+request_type;
+    this.forecast_data = [];
 
    this.http.get(req ,{responseType:'json', params: this.param_weather}).subscribe((res:any) => {
       if(request_type == "forecast"){
@@ -106,6 +108,9 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
      },600000);
     }
    fill_data(forecast_data){
+     console.log(this.forecast_data);
+    this.hourly_data= [];
+    this.weekly_data= [];
      for(var i=0;i<8; i++){
 
          let hourly_data_temp = new current_data();
@@ -167,9 +172,9 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
 
          let hourly_day_data_temp = new current_data();
          hourly_day_data_temp.name=this.get_heure(forecast_data[j].dt);
-         hourly_day_data_temp.humidity= forecast_data.humidity;
-         hourly_day_data_temp.temperature= forecast_data[j].temperature;
-         hourly_day_data_temp.wind_speed = forecast_data[j].wind_speed;
+         hourly_day_data_temp.humidity.push(forecast_data[j].humidity);
+         hourly_day_data_temp.temperature.push(Math.round(forecast_data[j].temperature*10)/10);
+         hourly_day_data_temp.wind_speed.push(forecast_data[j].wind_speed);
          hourly_day_data_temp.img_url = this.get_image_icon(forecast_data[j].id_icon);
 
          if(forecast_data[j].temperature >temp_max){
@@ -200,14 +205,15 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
 
        weekly_data_temp.humidity.push(humidity_min);
        weekly_data_temp.humidity.push(humidity_max);
-       weekly_data_temp.temperature.push(temp_min);
-       weekly_data_temp.temperature.push(temp_max);
+       weekly_data_temp.temperature.push(Math.round(temp_min*10)/10);
+       weekly_data_temp.temperature.push(Math.round(temp_max*10)/10);
        weekly_data_temp.img_url= this.get_image_icon(id_icon_temp);
        this.weekly_data.push(weekly_data_temp);
        this.day_data.push(hourly_day_data);
      }
      this.weekly_data.shift()
      this.day_data.shift()
+	 this.show_weather = true;
   }
 
   ngOnInit() {
@@ -223,15 +229,22 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-	  
+
 	  this.param_weather = new HttpParams()
 	  .set('lat',this.latitude.toString())
 	  .set('lon', this.longitude.toString())
 	  .set('APPID',this.API_KEY)
-	  .set('units',this.units );
+    .set('units',this.units );
+    this.show_weather=false;
     this.getData("forecast");
-    setTimeout(() => {
-      this.fill_data(this.forecast_data)
-    }, 2000)
+    setTimeout(()=>{
+		if(this.forecast_data.length>0){
+	      this.fill_data(this.forecast_data);
+	    }else{
+	      setTimeout(()=>{
+			  this.fill_data(this.forecast_data);
+		  },1000);
+	    }
+	}, 2000);
   }
 }

@@ -33,7 +33,10 @@ export class User {
 	}
 	public setBirthday(birthday:Date){
 		this.birthday = birthday;
-		this.birthday_string = ""+this.birthday.getFullYear()+"-"+this.birthday.getMonth()+"-"+this.birthday.getDate();
+		this.birthday_string = ""+this.birthday.getFullYear()+"-"+
+					(this.birthday.getMonth()+1).toString().padStart(2,'0')+
+					"-"+this.birthday.getDate().toString().padStart(2,'0');
+		console.log("Birthday String: ", this.birthday_string);
 	}
 	public setSex(sex:string){
 		if(sex.startsWith("m")||sex.startsWith("M")) this.sex = "Masculine";

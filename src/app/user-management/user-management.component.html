@@ -1,4 +1,4 @@
-<div *ngIf="!signup" class="col-lg-5 col-md-5 ml-auto container-fluid p-3" id="signin-form">
+<div *ngIf="!signup" class="col-lg-5 col-md-8 container-fluid p-3" id="signin-form">
 	<form class="form col-12 p-0 m-0" action="#" method="get" (submit)='signIn()'>
 		<div class="m-auto p-auto h1 text-center">
 			<span class="fa fa-user-circle"></span>
@@ -17,14 +17,19 @@
 			<label class="col-12 mt-3" for="password">Password</label>
 			<input type="password" [(ngModel)]="password" name="password" id="password" class="form-control" autocomplete="off" required>
 		</div>
-		<div class="input-group mt-5">
-			<button type="submit" name="submit" class="btn btn-success mr-auto ml-auto">Sign In</button>
+		<div class="input-group mt-5 row">
+			<div class="col-5 m-auto">
+				<button type="reset" name="reset" class="btn btn-danger w-100" (click)='cancelAction()'>Cancel</button>
+			</div>
+			<div class="col-5 m-auto">
+				<button type="submit" name="submit" class="btn btn-success w-100">Sign In</button>
+			</div>
 		</div>
 	</form>
 </div>
 
-<div *ngIf="signup" class="col-lg-5 col-md-5 ml-auto container-fluid pt-0 pl-3 pr-3 pb-3" id="signup-form">
-	<form class="form col-12 p-0 m-0 row" action="#" method="get">
+<div *ngIf="signup" class="col-lg-6 col-md-8 container-fluid ml-auto mb-5 pt-0 pl-3 pr-3 pb-5" id="signup-form">
+	<form class="form col-12 mb-3 pb-5 row" action="#" method="get">
 		<div class="text-center font-weight-bold mb-1 col-12 h2">
 			{{ app.title }} <span class="ml-2">Sign Up</span>
 		</div>

@@ -47,6 +47,7 @@ export class UserManagementComponent implements OnInit {
 	public signUp(){
 		if(this.user.getName() && this.user.getSurname() && this.user.getBirthday() && this.user.getUsername() && this.user.getPassword() && this.user.getSex()){
 			if(this.user.getPassword() == this.password){
+
 				this.user.save(this);
 				this.up_message = '';
 			}else{
@@ -104,3 +105,10 @@ export class UserManagementComponent implements OnInit {
 		this.emit_address.emit(this.user.getActiveAddress());
 	}
 }
+
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});

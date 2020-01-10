@@ -7,7 +7,7 @@
 	</div>
 	<div *ngIf="user==null" class="nav navbar navbar-nav">
 		<ul class="nav">
-			<li class="btn-link nav-item text-light" (click)='switchAction(1)'>
+			<li class="btn-link nav-item text-light" data-toggle="modal" data-target="#signup-modal" (click)='switchAction(1)'>
 				<span class="font-weight-bold">Login</span>
 			</li>
 			<li class="btn-link nav-item ml-3 text-light" (click)='switchAction(2)'>

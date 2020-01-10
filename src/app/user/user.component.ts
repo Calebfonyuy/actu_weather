@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
 	private username:string;
 	private password:string;
 	private password2:string;
+	private map_message:string = "";
 	@Input()
 	private user:User;
 	@Output()
@@ -54,7 +55,8 @@ export class UserComponent implements OnInit {
 
 	//Add new Address
 	private addAddress(address:any){
-		this.new_address.setPosition(address);
+		this.new_address.setTown(address[1]);
+		this.new_address.setPosition(address[0]);
 	}
 
 	//Add the validated address to User
@@ -66,8 +68,9 @@ export class UserComponent implements OnInit {
 			this.updateWeatherAddress();
 			this.new_address = new Address(null, null, null);
 			this.toggleAddAddr();
+			this.map_message = "";
 		}else{
-			alert('Enter town name and select on map');
+			this.map_message='Enter town name and select on map';
 		}
 	}
 
@@ -86,6 +89,7 @@ export class UserComponent implements OnInit {
 	private changAddress(index){
 		this.user.setActiveAddress(index);
 		this.updateWeatherAddress();
+		this.showmenu = false;
 	}
 
 	private deleteAddress(index){
