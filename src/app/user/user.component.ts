@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
 	private username:string;
 	private password:string;
 	private password2:string;
+	private map_message:string = "";
 	@Input()
 	private user:User;
 	@Output()
@@ -67,8 +68,9 @@ export class UserComponent implements OnInit {
 			this.updateWeatherAddress();
 			this.new_address = new Address(null, null, null);
 			this.toggleAddAddr();
+			this.map_message = "";
 		}else{
-			alert('Enter town name and select on map');
+			this.map_message='Enter town name and select on map';
 		}
 	}
 

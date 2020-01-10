@@ -150,8 +150,11 @@
 <div *ngIf='add_addr' class="container-fluid border text-center" id="address-area">
 	<form class="form p-3 border text-left"
 			action="#" method="get" id="address-form">
-		<div class="text-center h2">
-			<span>New Address</span>
+		<div class="text-center">
+			<span class="h2">New Address</span>
+			<div class="text-danger">
+				{{ map_message }}
+			</div>
 		</div>
 		<div class="m-auto input-group row">
 			<div class="col-12 m-auto">
