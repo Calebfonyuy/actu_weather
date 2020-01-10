@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { Address } from './user/address';
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
