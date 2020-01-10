@@ -12,9 +12,9 @@
 #signup-form{
 	position: fixed;
 	bottom: 20px;
-	max-height: 100%;
 	overflow-y: scroll;
 	height: 100vh;
+	z-index: 500000;
 }
 
 #signin-form{

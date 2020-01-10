@@ -19,8 +19,6 @@ export class PasswordCheckDirective {
   private onchange(){
 	  let value = this.element.nativeElement.value;
 	  let expected = this.source_element.value;
-	  console.log("value: "+value);
-	  console.log("expected: "+expected);
 	  if(value!=expected){
 		  this.renderer.setStyle(this.element.nativeElement,'border-color', 'red');
 	  }else{
