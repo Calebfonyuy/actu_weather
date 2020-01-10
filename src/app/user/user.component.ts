@@ -54,7 +54,8 @@ export class UserComponent implements OnInit {
 
 	//Add new Address
 	private addAddress(address:any){
-		this.new_address.setPosition(address);
+		this.new_address.setTown(address[1]);
+		this.new_address.setPosition(address[0]);
 	}
 
 	//Add the validated address to User

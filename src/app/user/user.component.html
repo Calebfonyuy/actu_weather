@@ -154,10 +154,6 @@
 			<span>New Address</span>
 		</div>
 		<div class="m-auto input-group row">
-			<div class="col-12 mb-2">
-				<input type="text" [(ngModel)]="new_address.town" name="newTown" placeholder="Name of Town"
-				class="form-control" autocomplete="off">
-			</div>
 			<div class="col-12 m-auto">
 				<app-osmap (emit_position)="addAddress($event)"></app-osmap>
 			</div>

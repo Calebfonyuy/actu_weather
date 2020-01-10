@@ -3,6 +3,10 @@ export class Address {
 
 	}
 
+	public setTown(town){
+		this.town = town;
+	}
+
 	public getTown(){
 		return this.town;
 	}
