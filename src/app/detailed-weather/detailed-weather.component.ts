@@ -106,6 +106,8 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
      },600000);
     }
    fill_data(forecast_data){
+    this.hourly_data= [];
+    this.weekly_data= [];
      for(var i=0;i<8; i++){
 
          let hourly_data_temp = new current_data();
