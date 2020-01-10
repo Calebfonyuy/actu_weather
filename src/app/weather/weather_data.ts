@@ -10,7 +10,7 @@ export class weather_data {
 		public max_temperature: number;
 		public min_temperature: number;
         public pressure : number;
-        public humidity : string;
+        public humidity : number;
 
         public wind_speed: number;
         public wind_degree: number

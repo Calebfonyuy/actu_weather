@@ -20,7 +20,6 @@ export class OsmapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initMap()
-	console.log("View Initialized");
   }
 
   ngAfterViewInit() {
@@ -51,9 +50,8 @@ export class OsmapComponent implements OnInit, AfterViewInit {
     marker.addTo(this.map)
 
     this.map.on('click', (e) => {
-		console.log(e);
-      position = e.latlng
-      console.log(position)
+      position = e.latlng;
+	  console.log(position);
       marker.setLatLng(position)
 	  this.emit_position.emit(position);
     })

@@ -1,12 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { User } from '../user/user';
+import { Address } from '../user/address';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit{
 	private action:boolean = false;
 	private signup:boolean = false;
 	private user:User;
@@ -14,12 +15,13 @@ export class HeaderComponent implements OnInit {
 	private status_emitter = new EventEmitter<any>();
 	private logo:any="app/img/logo.png";
 	private type:number = -1;
+	@Output()
+	private emit_address:EventEmitter<Address> = new EventEmitter<Address>();
 
   constructor() { }
 
   ngOnInit() {
   }
-
 	// Switch Header Status according to received action values
 	public switchAction(type){
 		if(this.action&&type==this.type){
@@ -53,5 +55,9 @@ export class HeaderComponent implements OnInit {
 	public logoutUser(){
 		this.user = null;
 		this.status_emitter.emit();
+	}
+
+	public updateWeatherAddress(address:Address){
+		this.emit_address.emit(address);
 	}
 }
