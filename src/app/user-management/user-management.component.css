@@ -12,13 +12,10 @@
 	position: fixed;
 	bottom: 20px;
 	height: 100vh;
-	left: 20%;
-	right: 20%;
+	overflow-y: scroll;
 }
 
 #signin-form{
-	left: 20%;
-	right: 20%;
 }
 
 #signin-form input, #signup-form input{

@@ -21,6 +21,7 @@ export class WeatherComponent implements OnInit , OnChanges{
     public URL: string ="http://api.openweathermap.org/data/2.5/";
 	private param_weather:HttpParams;
 	donnee = new weather_data();
+	private show_weather:boolean = false;
 
   constructor(private http: HttpClient) {
 
@@ -31,6 +32,7 @@ export class WeatherComponent implements OnInit , OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+	  this.show_weather = false;
 	  this.initializeParams();
 	  this.getData('weather');
   }
@@ -69,6 +71,7 @@ export class WeatherComponent implements OnInit , OnChanges{
       this.donnee.wind_degree= res.wind.degree;
       this.donnee.wind_speed=res.wind.speed;
       this.donnee.id_icon = res.weather[0].icon;
+	  this.show_weather = true;
     }
 
   });

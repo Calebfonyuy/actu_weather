@@ -1,6 +1,12 @@
 <div class="main-detail">
   <section *ngIf="!show_weather">
-    <img src="assets/small_loading.gif" alt="" srcset="">
+	  <div class="container mt-5">
+  		<div class="row">
+  			<div class="col-lg-7 col-md-9 m-auto text-center">
+  				<img src="assets/small_loading.gif" class="m-auto h-100" height="50">
+  			</div>
+  		</div>
+  	</div>
   </section>
 
   <section *ngIf="show_weather">
@@ -8,7 +14,7 @@
       <p (click)="onHourDisplay()">Hourly forecast</p>
       <p (click)="onDayDisplay()">Weekly forecast</p>
     </nav>
-    
+
     <div class="bloc" [hidden] = "hourHidden">
       <div class="hour-display" *ngFor="let hour of hourly_data">
         <h5>{{hour.name}}</h5>
@@ -29,7 +35,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="bloc" [hidden] = "dayHidden">
       <div class="hour-display days" *ngFor="let day of weekly_data">
         <div class="some-padding" (click) = "onDayData(day)">
@@ -52,9 +58,9 @@
         </div>
       </div>
     </div>
-  
+
     <!--hourly display for weekly data forecast-->
-    
+
     <div [hidden] = "detailsHidden" class="blocPlus">
       <h4>Hourly forecast for {{detailsName}}</h4>
       <div class="bloc">
@@ -79,5 +85,5 @@
       </div>
     </div>
   </section>
-  
+
 </div>

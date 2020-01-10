@@ -89,6 +89,7 @@ export class UserComponent implements OnInit {
 	private changAddress(index){
 		this.user.setActiveAddress(index);
 		this.updateWeatherAddress();
+		this.showmenu = false;
 	}
 
 	private deleteAddress(index){

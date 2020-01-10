@@ -15,8 +15,8 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
 	public longitude : number;
 	public units : string ='metric';
 	public  API_KEY:string ="33d32c6a2760f1561d57c0f8229f0a6a";
-  public URL: string ="http://api.openweathermap.org/data/2.5/";
-  private show_weather:boolean = false;
+	public URL: string ="http://api.openweathermap.org/data/2.5/";
+	private show_weather:boolean = false;
 
 	public forecast_data : weather_data[] = [];
 	public hourly_data : current_data[]=[];
@@ -213,6 +213,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
      }
      this.weekly_data.shift()
      this.day_data.shift()
+	 this.show_weather = true;
   }
 
   ngOnInit() {
@@ -228,7 +229,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-	  
+
 	  this.param_weather = new HttpParams()
 	  .set('lat',this.latitude.toString())
 	  .set('lon', this.longitude.toString())
@@ -236,15 +237,14 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
     .set('units',this.units );
     this.show_weather=false;
     this.getData("forecast");
-    setTimeout(this.waitAndFillData, 2000);
-  }
-
-  private waitAndFillData(){
-    if(this.forecast_data.length>0){
-      this.show_weather = true;
-      this.fill_data(this.forecast_data);
-    }else{
-      setTimeout(this.waitAndFillData,1000);
-    }
+    setTimeout(()=>{
+		if(this.forecast_data.length>0){
+	      this.fill_data(this.forecast_data);
+	    }else{
+	      setTimeout(()=>{
+			  this.fill_data(this.forecast_data);
+		  },1000);
+	    }
+	}, 2000);
   }
 }
