@@ -1,6 +1,8 @@
 <div class="navbar shadow fixed-top" id="header">
 	<span class="d-none d-md-block d-lg-block">
-		<img src="assets/logo.png" height="60">
+	<div class="lds-default">
+		<div> <img src="assets/logo.png" height="60"> </div>
+	</div>
 	</span>
 	<div *ngIf="user" class="nav navbar navbar-nav">
 		<app-user  [user] = "user" (logout_event) = 'logoutUser($event)' (emit_address)='updateWeatherAddress($event)'></app-user>
