@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
 	<div class="col-12 mb-5">
 		<app-header (status_emitter)="updateAppStatus($event)" (emit_address)='updateWeatherAddress($event)'></app-header>
 	</div>
@@ -31,6 +31,29 @@
         </div>
       </div>
     </div>
+	</section>
+</div>
+<app-footer></app-footer>
+<router-outlet></router-outlet> -->
+
+
+<div class="container-fluid">
+	<div class="col-12 mb-5">
+		<app-header (status_emitter)="updateAppStatus($event)" (emit_address)='updateWeatherAddress($event)'></app-header>
+	</div>
+	<section *ngIf="loggedIn">
+		<app-weather [latitude]="latitude" [longitude]="longitude"></app-weather>
+	</section>
+	<section *ngIf="!loggedIn">
+		<div class="text0">
+			<span></span>
+			<div class="text">
+				<h2>Welcome to Actu Weather</h2>
+				<p>Notre application vous permet de consulter votre météo depuis votre appareil
+				consulter la météo de n'importe quelle ville de par le monde!!! Actu Weather à votre service
+				</p>
+		</div>
+		</div>	
 	</section>
 </div>
 <app-footer></app-footer>

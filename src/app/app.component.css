@@ -1,4 +1,4 @@
-.container-fluid{
+/* .container-fluid{
   margin-bottom: 30px;
 }
 
@@ -102,3 +102,26 @@
   .bloc-temp .temperature{
 	  color:lightgrey;
   }
+ */
+
+
+
+/*modifications de biend*/
+	.text{
+		color: lightgrey;
+		height: 100%;
+		width: auto;
+		margin-left: 2%;
+		font-style: italic;
+		font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		padding: 5%;
+	}
+	p{
+		font-size: 1.5rem;
+	}
+	
+	h2{
+		margin: 0;
+	}
+	
+/*fin modifs de biend*/

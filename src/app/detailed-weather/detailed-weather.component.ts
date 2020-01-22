@@ -56,6 +56,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
   }
 
   onDayData(day) {
+    this.day_details = []
     this.day_details = this.day_data[this.dayIndex(day)]
     this.detailsHidden = false;
     this.detailsName = day.name
@@ -111,6 +112,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
      console.log(this.forecast_data);
     this.hourly_data= [];
     this.weekly_data= [];
+    this.day_data = []
      for(var i=0;i<8; i++){
 
          let hourly_data_temp = new current_data();
@@ -119,7 +121,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
            hourly_data_temp.name = "Today "+this.get_heure(forecast_data[i].dt) ;
          }
          else if((i!=0)&&(this.get_namedate(forecast_data[i-1].dt)!=this.get_namedate(forecast_data[i].dt))){
-           hourly_data_temp.name = "Tomorrow "+this.get_heure(forecast_data[i].dt) ;
+           hourly_data_temp.name = "TMW "+this.get_heure(forecast_data[i].dt) ;
          }else{
            hourly_data_temp.name = this.get_heure(forecast_data[i].dt) ;
          }
@@ -138,7 +140,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
        }
      let day: number[] = [];
      let val: number = 0;
-
+       console.log('forecast data length', forecast_data.length)
      for (var i=1; i < forecast_data.length; i++ ){
 
        if(this.get_namedate(forecast_data[i-1].dt) == this.get_namedate(forecast_data[i].dt)){
@@ -151,7 +153,7 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
      }
      day.push(val+1)
      let t: number = 0;
-
+     console.log('day length is', day.length)
      for(var i=0; i<day.length; i++){
        let hourly_day_data: current_data[]=[] ;
        let weekly_data_temp = new current_data();
@@ -222,10 +224,6 @@ export class DetailedWeatherComponent implements OnInit, OnChanges {
 	  .set('lon', this.longitude.toString())
 	  .set('APPID',this.API_KEY)
 	  .set('units',this.units );
-    this.getData("forecast");
-    setTimeout(() => {
-      this.fill_data(this.forecast_data)
-    }, 2000)
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -53,7 +53,7 @@ export class OsmapComponent implements OnInit, AfterViewInit {
     this.map.on('click', (e) => {
       position = e.latlng;
       marker.setLatLng(position)
-	  this.emit_position.emit([position,this.town_name]);
+	    this.emit_position.emit([position,this.town_name]);
     })
   }
 

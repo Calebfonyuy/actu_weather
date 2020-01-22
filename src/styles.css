@@ -1,4 +1,4 @@
-html, body{
+/* html, body{
 	height: 100%
 
 }
@@ -7,5 +7,69 @@ body {
   background-image: url('./app/img/sun.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: scroll;
+  background-attachment: fixed;
+} */
+
+
+html{
+	height: 100%;
 }
+body{
+  width: 100%;
+  height: 100%;
+  /* overflow: hidden; */
+  z-index: 1024;
+	box-shadow: 3px 3px 5px 1000px rgba(192, 192, 192, 0.2),
+				-3px 3px 5px 1000px rgba(192, 192, 192, 0.1);
+
+}
+
+
+  
+.d1{
+	box-shadow: 0px 15px 10px -5px #777;
+	background-size : cover;
+	background-attachment: fixed;
+	animation: fondu 25s ease-in-out infinite both;
+	transition: 2.5s;
+  }
+  
+  
+  
+  @keyframes fondu{
+	0%{
+		background-image: url("./app/img/full1.jpg");
+		background-size: cover;
+	}
+	15%{
+		background-image: url("./app/img/full2.jpg");
+		background-size: cover;
+	}
+	30%
+	{
+		background-image: url("./app/img/full5.jpg");
+		background-size: cover;
+	}
+	45%{background-image: url("./app/img/sun.jpg");
+	background-size: cover;
+	}
+
+	60%{background-image: url("./app/img/full4.jpg");
+		background-size: cover;
+		}
+
+	75%{
+		background-image: url("./app/img/full3.jpg");
+			background-size: cover;
+			}
+
+	85%{
+		background-image: url("./app/img/rain.jpg");
+				background-size: cover;
+		}
+
+  100%
+  {background-image: url("./app/img/nuage.jpg");
+			background-size: cover;
+			}
+  }
